@@ -1,0 +1,187 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-paper font-body text-ink antialiased;
+    overflow-x: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  ::selection {
+    background: #f2c9c0;
+    color: #1f1d1b;
+  }
+
+  /* Map-pin animations (referenced from inline styles on the SVG art). */
+  @keyframes pulse-ring {
+    0% {
+      transform: translate(-50%, -50%) scale(0.6);
+      opacity: 0.5;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(2.8);
+      opacity: 0;
+    }
+  }
+  @keyframes pin-float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-5px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+    }
+  }
+
+  /* Sketchy, on-brand keyboard focus ring. */
+  :focus-visible {
+    outline: 2px solid #d94f3a;
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+}
+
+@layer components {
+  /* ── Layout ───────────────────────────────────────────── */
+  .section {
+    @apply mx-auto w-full max-w-[1280px] px-6 py-[100px] md:px-10;
+  }
+
+  /* Cream dot-grid backdrop used on the hero / dark CTA. */
+  .dot-grid {
+    background-image: radial-gradient(circle, var(--dot, #bbb6ac) 0.8px, transparent 0.8px);
+    background-size: 28px 28px;
+  }
+
+  /* ── Type helpers ─────────────────────────────────────── */
+  .hand {
+    @apply font-hand text-accent;
+  }
+  .section-label {
+    @apply mb-3 inline-block -rotate-1 font-hand text-xl text-accent;
+  }
+  .section-title {
+    @apply font-head text-[clamp(36px,4vw,56px)] font-extrabold leading-[1.05] tracking-[-2px] text-ink;
+    text-wrap: pretty;
+  }
+  .section-sub {
+    @apply mt-4 max-w-[520px] font-body text-lg leading-relaxed text-muted;
+  }
+
+  /* ── Cards ────────────────────────────────────────────── */
+  /* The signature card: cream, 1.5px ink border, hard offset shadow. */
+  .sketch-card {
+    @apply rounded-[20px] border-[1.5px] border-line bg-paper shadow-sketch;
+  }
+
+  /* ── Buttons ──────────────────────────────────────────── */
+  /* A button with a layered hard "shadow" block behind it that it presses
+     into on hover. Wrap an inner element in .btn-stack > .btn-stack-shadow. */
+  .btn-stack {
+    @apply relative inline-flex;
+  }
+  .btn-stack-shadow {
+    @apply absolute rounded-[14px];
+    inset: 4px -4px -4px 4px;
+  }
+  .btn-ink,
+  .btn-coral {
+    @apply relative inline-flex cursor-pointer items-center gap-2.5 rounded-[14px] border-[1.5px] px-8 py-[18px] font-body text-[15px] font-bold uppercase tracking-[1.5px] no-underline transition-transform duration-100;
+  }
+  .btn-ink {
+    @apply border-line bg-ink text-paper;
+  }
+  .btn-coral {
+    @apply border-accent bg-accent text-paper;
+  }
+  .btn-ink:hover,
+  .btn-coral:hover {
+    transform: translate(1px, -1px);
+  }
+  .btn-ghost {
+    @apply inline-flex cursor-pointer items-center gap-2 rounded-[14px] border-[1.5px] border-faint px-7 py-[18px] font-body text-[15px] font-semibold text-ink2 no-underline transition-colors duration-150 hover:border-ink hover:text-ink;
+  }
+
+  /* ── Feature flip cards (hover on desktop / tap on touch) ─────────────── */
+  .flip {
+    perspective: 1200px;
+  }
+  .flip-inner {
+    @apply relative h-full w-full transition-transform duration-500;
+    transform-style: preserve-3d;
+  }
+  .flip:hover .flip-inner,
+  .flip.is-flipped .flip-inner {
+    transform: rotateY(180deg);
+  }
+  .flip-face {
+    @apply absolute inset-0 flex flex-col rounded-[20px] border-[1.5px] border-line p-8;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .flip-back {
+    transform: rotateY(180deg);
+  }
+
+  /* ── Marquee ──────────────────────────────────────────── */
+  .marquee {
+    @apply flex overflow-hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+  .marquee-track {
+    @apply flex shrink-0 items-center gap-6 pr-6;
+    animation: marquee-scroll 32s linear infinite;
+  }
+  .marquee:hover .marquee-track {
+    animation-play-state: paused;
+  }
+
+  /* ── FAQ accordion (grid-rows height transition) ──────────────────────── */
+  .faq-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .faq-body.is-open {
+    grid-template-rows: 1fr;
+  }
+  .faq-body > div {
+    overflow: hidden;
+  }
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
