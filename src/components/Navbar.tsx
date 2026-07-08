@@ -36,10 +36,10 @@ export function Navbar() {
         ))}
       </ul>
 
-      <a href="#download" className="relative inline-flex">
+      <a href="#waitlist" className="relative inline-flex">
         <span aria-hidden className="absolute rounded-xl bg-line/80" style={{ inset: '3px -3px -3px 3px' }} />
         <span className="relative cursor-pointer rounded-xl border-[1.5px] border-line bg-ink px-[22px] py-[11px] font-body text-[13px] font-bold uppercase tracking-[2px] text-paper transition-transform duration-100 hover:translate-x-px hover:-translate-y-px">
-          Get the app
+          Early access
         </span>
       </a>
     </nav>

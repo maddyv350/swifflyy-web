@@ -20,6 +20,23 @@ export const site = {
   footerLinks: ['About', 'Blog', 'Careers', 'Safety', 'Privacy', 'Terms', 'Contact'],
 } as const;
 
+/**
+ * Early-access waitlist. Point `endpoint` at your form/waitlist provider's POST
+ * URL (Formspree, Buttondown, GetWaitlist, LaunchList, a serverless function, …).
+ * It receives JSON `{ email }` and should return a 2xx on success.
+ *
+ * Leave `endpoint: ''` to run the form in DEMO mode — it accepts input and shows
+ * the success state but stores nothing. Swap in a real URL to go live.
+ */
+export const waitlist = {
+  endpoint: '',
+  placeholder: 'you@email.com',
+  cta: 'Get early access',
+  success: 'You’re on the list ✦',
+  successSub: 'We’ll email you the moment Swifflyy lands in your neighbourhood.',
+  error: 'Hmm, that didn’t go through. Mind trying again?',
+} as const;
+
 /** Napkin palette mirrored for inline SVG use (CSS vars don't reach <svg fill>). */
 export const palette = {
   paper: '#fbf8f1',
@@ -46,13 +63,6 @@ export const marquee = [
   'real places, real people',
   'delete-worthy in the best way',
   'left on read? not here',
-] as const;
-
-export const stats = [
-  { value: '2.4M+', label: 'pins dropped' },
-  { value: '180+', label: 'cities' },
-  { value: '87%', label: 'real connections' },
-  { value: '4.8★', label: 'app store rating' },
 ] as const;
 
 export const steps = [
@@ -195,11 +205,11 @@ export const faqs = [
   },
   {
     q: 'Is it free?',
-    a: 'Yes — downloading, dropping pins, discovering people and matching are free. A low-friction pass unlocks a few extras, but the core experience costs nothing.',
+    a: 'Yes — joining, dropping pins, discovering people and matching will be free. A low-friction pass unlocks a few extras, but the core experience costs nothing.',
   },
   {
     q: 'When does it launch?',
-    a: 'Soon, city by city. Grab the app / join the list and you’ll be the first to know the moment Swifflyy goes live in your neighbourhood.',
+    a: 'Soon, city by city. Join the early-access list and you’ll be the first to know the moment Swifflyy goes live in your neighbourhood.',
   },
   {
     q: 'How do you keep it safe?',

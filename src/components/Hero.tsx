@@ -3,7 +3,6 @@ import { gsap } from 'gsap';
 import { Underline } from './Underline';
 import { PhoneMockup } from './PhoneMockup';
 import { MagneticButton } from './MagneticButton';
-import { DownloadIcon } from './icons';
 
 interface HeroProps {
   animate: boolean;
@@ -58,7 +57,7 @@ export function Hero({ animate }: HeroProps) {
         {/* left */}
         <div ref={leftRef} className="flex flex-col gap-7 md:gap-8">
           <span data-hero className="inline-block -rotate-1 self-start font-hand text-[22px] text-accent">
-            ✦ now available
+            ✦ launching soon
           </span>
 
           <h1
@@ -80,12 +79,9 @@ export function Hero({ animate }: HeroProps) {
           </p>
 
           <div data-hero className="flex flex-wrap items-center gap-4">
-            <MagneticButton href="#download" enabled={animate} className="btn-stack">
+            <MagneticButton href="#waitlist" enabled={animate} className="btn-stack">
               <span className="btn-stack-shadow bg-line/85" />
-              <span className="btn-ink">
-                <DownloadIcon />
-                Download free
-              </span>
+              <span className="btn-ink">Get early access</span>
             </MagneticButton>
             <a href="#try" className="btn-ghost">
               Try the swipe demo →
@@ -93,7 +89,7 @@ export function Hero({ animate }: HeroProps) {
           </div>
 
           <div data-hero className="-rotate-1 font-hand text-[18px] text-faint">
-            free to download · works anywhere ✦
+            free to join · launching city by city ✦
           </div>
         </div>
 
