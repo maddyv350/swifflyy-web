@@ -5,7 +5,6 @@ import { ScrollProgress } from './components/ScrollProgress';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Marquee } from './components/Marquee';
-import { StatsBar } from './components/StatsBar';
 import { HowItWorks } from './components/HowItWorks';
 import { SwipeDeck } from './components/SwipeDeck';
 import { Statement } from './components/Statement';
@@ -29,7 +28,6 @@ export default function App() {
       <main>
         <Hero animate={animate} />
         <Marquee />
-        <StatsBar animate={animate} />
         <HowItWorks animate={animate} />
         <SwipeDeck animate={animate} />
         <Statement animate={animate} />

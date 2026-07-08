@@ -1,10 +1,10 @@
 import { Wordmark } from './Wordmark';
-import { AppleIcon, PlayIcon } from './icons';
+import { WaitlistForm } from './WaitlistForm';
 
-/** Dark ink call-to-action with the big wordmark and app-store buttons. */
+/** Dark ink call-to-action with the big wordmark and early-access signup. */
 export function DownloadCTA() {
   return (
-    <section id="download" className="relative overflow-hidden bg-ink px-6 py-[120px] text-center md:px-10">
+    <section id="waitlist" className="relative overflow-hidden bg-ink px-6 py-[120px] text-center md:px-10">
       {/* faint dot grid on the dark field */}
       <div
         className="dot-grid pointer-events-none absolute inset-0"
@@ -23,35 +23,19 @@ export function DownloadCTA() {
         <Wordmark className="text-[64px] md:text-[80px]" />
 
         <h2 className="mt-7 font-head text-[clamp(32px,4vw,52px)] font-extrabold leading-[1.1] tracking-[-2px] text-paper">
-          Drop your first pin
+          Be first when
           <br />
-          today. It’s free.
+          we launch.
         </h2>
         <p className="mt-4 font-body text-lg leading-[1.55] text-paper/55">
-          Join the people already finding connection in the places they actually love. No algorithm.
-          Just proximity.
+          Swifflyy is launching soon, city by city. Join the early-access list and you’ll be the
+          first to drop a pin the moment it goes live near you.
         </p>
 
-        <div className="mt-10 flex flex-wrap justify-center gap-4">
-          <a href="#" className="btn-stack" aria-label="Download on the App Store">
-            <span className="btn-stack-shadow bg-accent/60" />
-            <span className="btn-coral !px-10 !py-5">
-              <AppleIcon />
-              App Store
-            </span>
-          </a>
-          <a
-            href="#"
-            aria-label="Get it on Google Play"
-            className="inline-flex items-center gap-2.5 rounded-[14px] border-[1.5px] border-paper/25 px-9 py-5 font-body text-[15px] font-semibold text-paper/70 no-underline transition-colors hover:border-paper/60 hover:text-paper"
-          >
-            <PlayIcon />
-            Google Play
-          </a>
-        </div>
+        <WaitlistForm />
 
         <div className="mt-5 inline-block -rotate-1 font-hand text-xl text-paper/35">
-          no credit card · drop a pin in 30 seconds ✦
+          no spam · unsubscribe anytime ✦
         </div>
       </div>
     </section>
