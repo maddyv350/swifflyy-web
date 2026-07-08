@@ -2,6 +2,7 @@ import { usePrefersReducedMotion } from './hooks/usePrefersReducedMotion';
 import { useSmoothScroll } from './hooks/useSmoothScroll';
 
 import { ScrollProgress } from './components/ScrollProgress';
+import { PinDrops } from './components/PinDrops';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Marquee } from './components/Marquee';
@@ -24,6 +25,7 @@ export default function App() {
   return (
     <>
       <ScrollProgress />
+      <PinDrops enabled={animate} />
       <Navbar />
       <main>
         <Hero animate={animate} />

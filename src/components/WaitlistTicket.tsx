@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { gsap } from 'gsap';
 import { shareLink } from '../lib/referral';
+import { burstConfetti } from '../lib/confetti';
 
 const SHARE_TEXT = 'I just grabbed early access to Swifflyy — a location-first dating app. Drop a pin, meet people where you actually are. Join with my link:';
 
@@ -11,7 +13,18 @@ const SHARE_TEXT = 'I just grabbed early access to Swifflyy — a location-first
  */
 export function WaitlistTicket({ code, city }: { code: string; city?: string }) {
   const [copied, setCopied] = useState(false);
+  const rootRef = useRef<HTMLDivElement>(null);
   const link = shareLink(code);
+
+  // Getting on the list is the site's conversion moment — celebrate it.
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+    burstConfetti(el, 44);
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.from(el, { y: 26, opacity: 0, rotation: -1.5, duration: 0.6, ease: 'back.out(1.6)' });
+    }
+  }, []);
 
   const copy = async () => {
     try {
@@ -39,7 +52,7 @@ export function WaitlistTicket({ code, city }: { code: string; city?: string }) 
   const waUrl = `https://wa.me/?text=${encodeURIComponent(`${SHARE_TEXT} ${link}`)}`;
 
   return (
-    <div className="mx-auto mt-10 max-w-md text-left">
+    <div ref={rootRef} className="relative mx-auto mt-10 max-w-md text-left">
       {/* the ticket */}
       <div className="overflow-hidden rounded-[20px] border-[1.5px] border-paper/25 bg-paper/[0.05]">
         <div className="flex items-center justify-between px-7 pt-6">

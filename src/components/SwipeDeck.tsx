@@ -121,7 +121,7 @@ export function SwipeDeck({ animate }: { animate: boolean }) {
           <div ref={burstHost} className="pointer-events-none absolute left-1/2 top-1/3 z-[60]" />
 
           {/* card stack */}
-          <div className="relative h-[460px] w-full select-none" style={{ touchAction: 'pan-y' }}>
+          <div data-no-pin className="relative h-[460px] w-full select-none" style={{ touchAction: 'pan-y' }}>
             {done ? (
               <div className="sketch-card flex h-full w-full flex-col items-center justify-center gap-4 px-8 text-center">
                 <div className="text-5xl">🎉</div>
