@@ -206,6 +206,16 @@ backend we choose.
   when Swifflyy lands in <city>"), tagging every signup for city-by-city launch.
 - No fabricated crowd numbers — honesty preserved (see §2).
 
+**✅ Phase 3 (delight layer) — shipped (2026-07-08)**
+- **Pin-drop clicks** (`PinDrops.tsx`): click anywhere → a map pin drops with a bounce + ripple.
+  Skips interactive elements and the swipe deck; fully disabled for reduced motion.
+- **VibePicker**: chips burst mini-confetti + elastic-pop when picked; 5 picks = bigger burst.
+- **Hero stickers** bob gently; **navbar wordmark** tilts on hover.
+- **Signup celebration**: confetti + springy entrance on the waitlist ticket.
+- **Footer easter egg**: a secret 📍 that wiggles every ~7s; clicking it bursts confetti and swaps
+  the copyright line ("you found the secret pin ✦").
+- Verified with headless Chrome (app mounts, features render, `?ref=` nudge works).
+
 **⏳ Still needs an external asset / account (can't be done from code alone):**
 - **Waitlist endpoint** — paste a real URL into `waitlist.endpoint` (Formspree is the 2-min option).
 - **OG image PNG** — rasterize `public/og-image.svg` → `public/og-image.png` and uncomment its tags
