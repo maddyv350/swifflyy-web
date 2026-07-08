@@ -30,6 +30,22 @@ export function Hero({ animate }: HeroProps) {
     return () => ctx.revert();
   }, [animate]);
 
+  // Sticker badges bob gently, out of phase, like they're pinned to the page.
+  useEffect(() => {
+    if (!animate) return;
+    const ctx = gsap.context(() => {
+      gsap.to('[data-sticker]', {
+        y: -7,
+        duration: 2.2,
+        ease: 'sine.inOut',
+        repeat: -1,
+        yoyo: true,
+        stagger: 0.55,
+      });
+    });
+    return () => ctx.revert();
+  }, [animate]);
+
   // Subtle pointer parallax/tilt on the phone (desktop, motion-on only).
   useEffect(() => {
     if (!animate) return;
@@ -100,10 +116,10 @@ export function Hero({ animate }: HeroProps) {
           </div>
 
           {/* floating sticker badges */}
-          <div className="absolute left-0 top-6 z-10 hidden -rotate-6 rounded-full border-[1.5px] border-line bg-paper px-3 py-1.5 font-body text-[13px] font-semibold text-ink shadow-sketch-sm md:block">
+          <div data-sticker className="absolute left-0 top-6 z-10 hidden -rotate-6 rounded-full border-[1.5px] border-line bg-paper px-3 py-1.5 font-body text-[13px] font-semibold text-ink shadow-sketch-sm md:block">
             no situationships 🙅
           </div>
-          <div className="absolute -bottom-2 right-8 z-10 hidden rotate-3 rounded-full border-[1.5px] border-accent bg-accent-soft px-3 py-1.5 font-body text-[13px] font-semibold text-accent shadow-sketch-sm md:block">
+          <div data-sticker className="absolute -bottom-2 right-8 z-10 hidden rotate-3 rounded-full border-[1.5px] border-accent bg-accent-soft px-3 py-1.5 font-body text-[13px] font-semibold text-accent shadow-sketch-sm md:block">
             230m away ✦
           </div>
 

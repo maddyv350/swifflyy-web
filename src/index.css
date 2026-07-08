@@ -176,6 +176,31 @@
   }
 }
 
+/* The footer's secret pin: still most of the time, a quick "psst" wiggle
+   every few seconds so the observant eventually notice it. */
+.secret-pin {
+  animation: secret-wiggle 7s ease-in-out infinite;
+}
+@keyframes secret-wiggle {
+  0%,
+  90%,
+  100% {
+    transform: rotate(0deg);
+  }
+  92% {
+    transform: rotate(-14deg);
+  }
+  94% {
+    transform: rotate(12deg);
+  }
+  96% {
+    transform: rotate(-8deg);
+  }
+  98% {
+    transform: rotate(4deg);
+  }
+}
+
 @keyframes marquee-scroll {
   from {
     transform: translateX(0);

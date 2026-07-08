@@ -19,7 +19,11 @@ export function Navbar() {
       style={scrolled ? { boxShadow: '0 4px 24px rgba(31,29,27,0.06)' } : undefined}
       aria-label="Primary"
     >
-      <a href="#top" aria-label={`${site.name} home`}>
+      <a
+        href="#top"
+        aria-label={`${site.name} home`}
+        className="inline-block transition-transform duration-200 hover:-rotate-3 hover:scale-105"
+      >
         <Wordmark className="text-[34px]" />
       </a>
 
