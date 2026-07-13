@@ -2,6 +2,9 @@ import { useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { swipeProfiles } from '../config/site';
 import { burstConfetti } from '../lib/confetti';
+import { useReveal } from '../hooks/useReveal';
+import { Avatar } from './ui';
+import { PinIcon, HeartIcon, XMarkIcon, VerifiedIcon } from './icons';
 
 type Profile = (typeof swipeProfiles)[number];
 type Dir = 'left' | 'right';
@@ -10,9 +13,8 @@ const THRESHOLD = 110;
 
 /**
  * A fully interactive Tinder-style deck you can actually drag. Swipe (or tap
- * the buttons) to like/pass; certain profiles trigger an "it's a match!" burst.
- * Drag is gsap-driven for buttery transforms; vertical page scroll still works
- * (touch-action: pan-y).
+ * the buttons) to like/pass; certain profiles trigger an "it's a match!"
+ * burst. Drag is gsap-driven; vertical page scroll still works (pan-y).
  */
 export function SwipeDeck({ animate }: { animate: boolean }) {
   const [index, setIndex] = useState(0);
@@ -20,6 +22,7 @@ export function SwipeDeck({ animate }: { animate: boolean }) {
   const [passes, setPasses] = useState(0);
   const [match, setMatch] = useState<Profile | null>(null);
 
+  const headRef = useReveal({ enabled: animate });
   const topRef = useRef<HTMLDivElement | null>(null);
   const likeStamp = useRef<HTMLDivElement | null>(null);
   const nopeStamp = useRef<HTMLDivElement | null>(null);
@@ -103,34 +106,46 @@ export function SwipeDeck({ animate }: { animate: boolean }) {
   const visible = swipeProfiles.slice(index, index + 3);
 
   return (
-    <section id="try" className="bg-paper py-[100px]">
-      <div className="section !py-0">
-        <div className="text-center">
-          <span className="section-label">try it — no download</span>
-          <h2 className="section-title">
-            Go on. <span className="text-accent">Swipe.</span>
+    <section id="try" className="section-pad relative overflow-hidden bg-cream-100">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-50 [mask-image:radial-gradient(60%_60%_at_50%_40%,#000,transparent)]"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgb(var(--cream-400) / 0.5) 1px, transparent 1px)',
+          backgroundSize: '26px 26px',
+        }}
+      />
+      <div className="wrap relative">
+        <div ref={headRef} className="text-center">
+          <span data-reveal className="eyebrow">
+            try it — no download
+          </span>
+          <h2 data-reveal className="title">
+            Go on. <em className="italic text-coral-600">Swipe.</em>
           </h2>
-          <p className="section-sub mx-auto">
-            Drag a card, or tap the buttons. This is exactly how discovery feels in the app — minus
-            the part where these are real people near you.
+          <p data-reveal className="lede mx-auto text-center">
+            Drag a card, or tap the buttons. This is how discovery feels in the app — minus the
+            part where these are real, verified people near you.
           </p>
         </div>
 
-        <div className="relative mx-auto mt-14 flex w-full max-w-[360px] flex-col items-center">
-          {/* confetti origin + match overlay live above the stack */}
+        <div className="relative mx-auto mt-14 flex w-full max-w-[350px] flex-col items-center">
+          {/* confetti origin lives above the stack */}
           <div ref={burstHost} className="pointer-events-none absolute left-1/2 top-1/3 z-[60]" />
 
           {/* card stack */}
-          <div data-no-pin className="relative h-[460px] w-full select-none" style={{ touchAction: 'pan-y' }}>
+          <div data-no-pin className="relative h-[470px] w-full select-none" style={{ touchAction: 'pan-y' }}>
             {done ? (
-              <div className="sketch-card flex h-full w-full flex-col items-center justify-center gap-4 px-8 text-center">
-                <div className="text-5xl">🎉</div>
-                <h3 className="font-head text-2xl font-bold text-ink">You’re all caught up</h3>
-                <p className="font-body text-muted">
+              <div className="card-stamp flex h-full w-full flex-col items-center justify-center gap-4 px-8 text-center">
+                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-coral-100 text-coral-600">
+                  <HeartIcon size={26} />
+                </span>
+                <h3 className="font-display text-2xl font-semibold text-ink">You’re all caught up</h3>
+                <p className="text-[15px] leading-relaxed text-ink-2">
                   You liked {likes} and passed on {passes}. Drop a pin in the real app to see who’s
                   actually nearby.
                 </p>
-                <button onClick={reset} className="btn-ghost mt-2 !py-3">
+                <button onClick={reset} className="btn-ghost mt-1 !py-3 !text-[14px]">
                   ↺ Swipe again
                 </button>
               </div>
@@ -142,6 +157,7 @@ export function SwipeDeck({ animate }: { animate: boolean }) {
                     <ProfileCard
                       key={p.name}
                       profile={p}
+                      tone={(index + posFromTop) % 5}
                       pos={posFromTop}
                       cardRef={isTop ? topRef : undefined}
                       likeStamp={isTop ? likeStamp : undefined}
@@ -157,20 +173,20 @@ export function SwipeDeck({ animate }: { animate: boolean }) {
 
             {/* It's a match overlay */}
             {match && (
-              <div className="absolute inset-0 z-[70] flex flex-col items-center justify-center gap-4 rounded-[24px] border-[1.5px] border-line bg-paper/95 px-8 text-center backdrop-blur-sm">
-                <div className="font-hand text-3xl text-accent">it’s a match!</div>
-                <div className="flex items-center gap-3 text-4xl">
-                  <span>🧑</span>
-                  <span className="text-accent">♥</span>
-                  <span>{match.avatar}</span>
-                </div>
-                <h3 className="font-head text-2xl font-extrabold text-ink">
-                  You &amp; {match.name} both liked each other
+              <div className="absolute inset-0 z-[70] flex flex-col items-center justify-center gap-4 rounded-[26px] border-[1.5px] border-ink bg-cream-25/95 px-8 text-center backdrop-blur-sm">
+                <span className="-rotate-2 font-hand text-4xl text-coral-600">it’s a match!</span>
+                <span className="flex items-center">
+                  <Avatar name="You" tone={4} size={52} />
+                  <HeartIcon size={20} className="z-10 -mx-1.5 text-coral-500" />
+                  <Avatar name={match.name} tone={2} size={52} />
+                </span>
+                <h3 className="font-display text-[22px] font-semibold leading-tight text-ink">
+                  You &amp; {match.name} both said yes
                 </h3>
-                <p className="font-body text-sm text-muted">
-                  In the app, a chat would open right here — starting with where you crossed paths.
+                <p className="text-sm leading-relaxed text-ink-2">
+                  In the app, a chat opens right here — starting with where you crossed paths.
                 </p>
-                <button onClick={() => setMatch(null)} className="btn-ink !py-3 !text-[13px]">
+                <button onClick={() => setMatch(null)} className="btn-ink !py-3 !text-[13.5px]">
                   Keep swiping →
                 </button>
               </div>
@@ -179,23 +195,23 @@ export function SwipeDeck({ animate }: { animate: boolean }) {
 
           {/* controls */}
           {!done && (
-            <div className="mt-8 flex items-center gap-5">
+            <div className="mt-8 flex items-center gap-6">
               <button
                 onClick={() => commit('left')}
                 aria-label="Pass"
-                className="flex h-16 w-16 items-center justify-center rounded-full border-[1.5px] border-line bg-paper text-2xl shadow-sketch-sm transition-transform hover:-translate-y-0.5 active:translate-y-0"
+                className="flex h-16 w-16 items-center justify-center rounded-full border-[1.5px] border-ink/25 bg-cream-25 text-ink shadow-lift transition-transform duration-200 ease-out hover:-translate-y-0.5 active:scale-95"
               >
-                ✕
+                <XMarkIcon size={20} />
               </button>
-              <div className="text-center font-hand text-lg text-muted">
-                <span className="text-accent">♥ {likes}</span> · {passes} nope
-              </div>
+              <span className="text-center font-hand text-xl text-ink-3">
+                <span className="text-coral-700">{likes} liked</span> · {passes} passed
+              </span>
               <button
                 onClick={() => commit('right')}
                 aria-label="Like"
-                className="flex h-16 w-16 items-center justify-center rounded-full border-[1.5px] border-accent bg-accent text-2xl text-paper shadow-sketch-sm transition-transform hover:-translate-y-0.5 active:translate-y-0"
+                className="flex h-16 w-16 items-center justify-center rounded-full bg-coral-600 text-cream-25 shadow-lift transition-transform duration-200 ease-out hover:-translate-y-0.5 active:scale-95"
               >
-                ♥
+                <HeartIcon size={22} />
               </button>
             </div>
           )}
@@ -208,6 +224,7 @@ export function SwipeDeck({ animate }: { animate: boolean }) {
 /* ── A single profile card ──────────────────────────────────────────────── */
 function ProfileCard({
   profile,
+  tone,
   pos,
   cardRef,
   likeStamp,
@@ -217,6 +234,7 @@ function ProfileCard({
   onPointerUp,
 }: {
   profile: Profile;
+  tone: number;
   pos: number;
   cardRef?: React.RefObject<HTMLDivElement | null>;
   likeStamp?: React.RefObject<HTMLDivElement | null>;
@@ -233,7 +251,7 @@ function ProfileCard({
       onPointerMove={onPointerMove}
       onPointerUp={onPointerUp}
       onPointerCancel={onPointerUp}
-      className="sketch-card absolute inset-0 flex flex-col overflow-hidden rounded-[24px]"
+      className="card-stamp absolute inset-0 flex flex-col overflow-hidden !rounded-[26px]"
       style={{
         zIndex: 30 - pos,
         transform: `translateY(${pos * 14}px) scale(${1 - pos * 0.05})`,
@@ -246,48 +264,47 @@ function ProfileCard({
         <>
           <div
             ref={likeStamp as React.Ref<HTMLDivElement>}
-            className="pointer-events-none absolute left-5 top-6 z-20 -rotate-12 rounded-lg border-[3px] border-accent px-3 py-1 font-head text-2xl font-extrabold uppercase tracking-wide text-accent opacity-0"
+            className="font-display pointer-events-none absolute left-5 top-6 z-20 -rotate-12 rounded-xl border-[3px] border-coral-600 px-3.5 py-1 text-2xl font-bold uppercase tracking-wide text-coral-600 opacity-0"
           >
             Liked
           </div>
           <div
             ref={nopeStamp as React.Ref<HTMLDivElement>}
-            className="pointer-events-none absolute right-5 top-6 z-20 rotate-12 rounded-lg border-[3px] border-ink px-3 py-1 font-head text-2xl font-extrabold uppercase tracking-wide text-ink opacity-0"
+            className="font-display pointer-events-none absolute right-5 top-6 z-20 rotate-12 rounded-xl border-[3px] border-ink px-3.5 py-1 text-2xl font-bold uppercase tracking-wide text-ink opacity-0"
           >
             Nope
           </div>
         </>
       )}
 
-      {/* header: avatar over a sketchy dot-grid */}
-      <div className="dot-grid relative flex h-[52%] items-center justify-center bg-paper2">
-        <span className="absolute left-4 top-4 rounded-full border border-accent bg-accent-soft px-2.5 py-1 font-body text-[11px] font-semibold text-accent">
-          📍 {profile.distance} · {profile.area}
+      {/* header */}
+      <div className="relative flex h-[50%] items-center justify-center bg-gradient-to-br from-coral-100 via-cream-100 to-plum-100">
+        <span className="absolute left-4 top-4 flex items-center gap-1 rounded-full bg-cream-25/90 px-2.5 py-1 text-[11px] font-bold text-coral-700">
+          <PinIcon size={11} /> {profile.distance} · {profile.area}
         </span>
-        <div className="flex h-28 w-28 items-center justify-center rounded-full border-[1.5px] border-line bg-paper text-6xl shadow-sketch-sm">
-          {profile.avatar}
-        </div>
+        <Avatar name={profile.name} tone={tone} size={116} className="shadow-lift" />
       </div>
 
       {/* body */}
-      <div className="flex flex-1 flex-col gap-2.5 px-6 py-5">
-        <div className="font-head text-2xl font-extrabold tracking-[-0.5px] text-ink">
+      <div className="flex flex-1 flex-col gap-2 px-6 py-5">
+        <span className="flex items-center gap-2 font-display text-[24px] font-semibold tracking-[-0.01em] text-ink">
           {profile.name}, {profile.age}
-        </div>
-        <div className="-mt-1">
-          <div className="font-hand text-lg text-muted">{profile.prompt}</div>
-          <div className="font-body text-[15px] font-medium text-ink2">“{profile.answer}”</div>
-        </div>
-        <div className="mt-auto flex flex-wrap gap-2">
+          <VerifiedIcon size={17} className="text-coral-500" />
+        </span>
+        <span>
+          <span className="block font-hand text-[18px] text-ink-3">{profile.prompt}</span>
+          <span className="block text-[15px] font-medium text-ink-2">“{profile.answer}”</span>
+        </span>
+        <span className="mt-auto flex flex-wrap gap-2">
           {profile.tags.map((t) => (
             <span
               key={t}
-              className="rounded-full border-[1.5px] border-paper3 bg-paper2 px-3 py-1 font-body text-xs font-medium text-ink2"
+              className="rounded-full border border-ink/10 bg-cream-100 px-3 py-1 text-xs font-semibold text-ink-2"
             >
               {t}
             </span>
           ))}
-        </div>
+        </span>
       </div>
     </div>
   );

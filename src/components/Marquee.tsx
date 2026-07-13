@@ -1,31 +1,30 @@
 import { marquee } from '../config/site';
 
-/** An infinite scrolling statement band (pauses on hover). Two copies of the
- *  track sit side by side so the loop is seamless. */
+/** A tilted plum ribbon of one-liners scrolling across the page. */
 export function Marquee() {
-  const Item = ({ text }: { text: string }) => (
-    <span className="flex items-center gap-6">
-      <span className="font-head text-2xl font-extrabold uppercase tracking-tight text-paper md:text-3xl">
-        {text}
-      </span>
-      <span className="text-2xl text-accent md:text-3xl">✦</span>
-    </span>
-  );
-
-  const Track = () => (
-    <div className="marquee-track" aria-hidden>
+  const Track = ({ hidden }: { hidden?: boolean }) => (
+    <div className="marquee-track" aria-hidden={hidden}>
       {marquee.map((m) => (
-        <Item key={m} text={m} />
+        <span
+          key={m}
+          className="flex items-center gap-6 pr-6 text-[15px] font-semibold uppercase tracking-[0.16em] text-cream-50"
+        >
+          {m}
+          <span className="text-coral-400" aria-hidden>
+            ✦
+          </span>
+        </span>
       ))}
     </div>
   );
 
   return (
-    <div className="border-y-[1.5px] border-line bg-ink py-5">
-      <div className="marquee">
+    <section aria-label="Swifflyy in seven lines" className="relative -my-2 overflow-hidden py-8">
+      <div className="marquee -mx-4 -rotate-[1.2deg] bg-plum-950 py-4">
         <Track />
-        <Track />
+        <Track hidden />
+        <Track hidden />
       </div>
-    </div>
+    </section>
   );
 }

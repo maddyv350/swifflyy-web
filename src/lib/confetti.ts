@@ -1,6 +1,7 @@
 import { gsap } from 'gsap';
 
-const COLORS = ['#d94f3a', '#f2c9c0', '#f5a623', '#7a766f', '#1f1d1b'];
+/** Brand confetti: corals, a plum, a paper fleck and one joyful marigold. */
+const COLORS = ['#e25b3e', '#f8c6b7', '#c8a2bb', '#2e1927', '#f5a623'];
 
 /**
  * Fires a quick burst of small confetti dots from a host element's centre.

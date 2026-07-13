@@ -1,31 +1,187 @@
-/** Small inline icons used in CTAs. They inherit `currentColor`. */
+/**
+ * Hand-drawn-feeling inline icons. All stroke-based, inherit `currentColor`,
+ * sized via the `size` prop. No OS emoji anywhere near app-UI mockups.
+ */
 
-export const DownloadIcon = ({ className }: { className?: string }) => (
+interface IconProps {
+  size?: number;
+  className?: string;
+}
+
+export const PinIcon = ({ size = 16, className }: IconProps) => (
   <svg
     className={className}
-    width="18"
-    height="18"
+    width={size}
+    height={size}
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
-    strokeWidth="2.5"
+    strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
     aria-hidden
   >
-    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" />
-    <path d="M8 12l4 4 4-4M12 8v8" />
+    <path d="M12 21.5S4.5 15 4.5 9.8A7.5 7.5 0 0 1 12 2.5a7.5 7.5 0 0 1 7.5 7.3c0 5.2-7.5 11.7-7.5 11.7Z" />
+    <circle cx="12" cy="9.8" r="2.8" />
   </svg>
 );
 
-export const AppleIcon = ({ className }: { className?: string }) => (
-  <svg className={className} width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
+/** Solid pin for map mockups. */
+export const PinSolid = ({ size = 24, className }: IconProps) => (
+  <svg className={className} width={size} height={(size * 30) / 24} viewBox="0 0 24 30" aria-hidden>
+    <path
+      d="M12 29S2.5 19.6 2.5 11.5A9.5 9.5 0 0 1 12 2a9.5 9.5 0 0 1 9.5 9.5C21.5 19.6 12 29 12 29Z"
+      fill="currentColor"
+      stroke="rgb(31 15 26)"
+      strokeWidth="1.5"
+    />
+    <circle cx="12" cy="11.5" r="3.4" fill="rgb(251 247 239)" stroke="rgb(31 15 26)" strokeWidth="1.5" />
   </svg>
 );
 
-export const PlayIcon = ({ className }: { className?: string }) => (
-  <svg className={className} width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-    <path d="M3.18 23.76c.28.15.59.2.91.14l12.93-7.47-2.79-2.79-11.05 10.12zm-.77-20.69C2.14 3.42 2 3.77 2 4.2v15.6c0 .43.14.78.41 1.04l.06.06 8.74-8.74v-.2L2.41 3.01l-.06.06zm19.05 8.62L18.6 9.45l-3.06 3.06 3.06 3.06 2.9-1.67c.83-.48.83-1.26-.04-1.74v.03zM4.1.24L17.03 7.7l-2.79 2.79L4.1.24z" />
+export const HeartIcon = ({ size = 18, className }: IconProps) => (
+  <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+    <path d="M12 21c-.4 0-8.6-5.1-9.8-10.4C1.3 6.7 4 4 7 4c2 0 3.9 1 5 2.7C13.1 5 15 4 17 4c3 0 5.7 2.7 4.8 6.6C20.6 15.9 12.4 21 12 21Z" />
+  </svg>
+);
+
+export const XMarkIcon = ({ size = 18, className }: IconProps) => (
+  <svg
+    className={className}
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.6"
+    strokeLinecap="round"
+    aria-hidden
+  >
+    <path d="M6 6l12 12M18 6L6 18" />
+  </svg>
+);
+
+/** Selfie-verified badge: a wobbly rosette with a check. */
+export const VerifiedIcon = ({ size = 16, className }: IconProps) => (
+  <svg className={className} width={size} height={size} viewBox="0 0 24 24" fill="none" aria-hidden>
+    <path
+      d="M12 2.2l2.5 1.9 3.1-.3 1 3 2.8 1.4-.9 3 1.6 2.7-2.3 2.1.1 3.1-3 .8-1.7 2.6-2.9-1-2.9 1-1.7-2.6-3-.8.1-3.1L2.5 14l1.6-2.7-.9-3L6 6.9l1-3 3.1.3L12 2.2Z"
+      fill="currentColor"
+    />
+    <path
+      d="M8.4 12.3l2.4 2.4 4.8-5"
+      stroke="rgb(251 247 239)"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      fill="none"
+    />
+  </svg>
+);
+
+export const ShieldIcon = ({ size = 24, className }: IconProps) => (
+  <svg
+    className={className}
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden
+  >
+    <path d="M12 2.5c2.6 1.5 5.3 2.3 8 2.4 0 6.8-2.4 12.8-8 16.6-5.6-3.8-8-9.8-8-16.6 2.7-.1 5.4-.9 8-2.4Z" />
+    <path d="M8.8 11.8l2.3 2.3 4.4-4.6" />
+  </svg>
+);
+
+export const PinClockIcon = ({ size = 24, className }: IconProps) => (
+  <svg
+    className={className}
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden
+  >
+    <path d="M10 21.2S3.2 15.5 3.2 10.6A6.8 6.8 0 0 1 10 4a6.8 6.8 0 0 1 4.5 1.7" />
+    <circle cx="16.5" cy="13.5" r="5.3" />
+    <path d="M16.5 10.8v2.7l2 1.6" />
+  </svg>
+);
+
+export const GpsCrossIcon = ({ size = 24, className }: IconProps) => (
+  <svg
+    className={className}
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden
+  >
+    <circle cx="12" cy="12" r="7" />
+    <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
+    <path d="M9.5 9.5l5 5M14.5 9.5l-5 5" />
+  </svg>
+);
+
+export const HandStopIcon = ({ size = 24, className }: IconProps) => (
+  <svg
+    className={className}
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.8"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden
+  >
+    <path d="M8 12V5.5a1.5 1.5 0 0 1 3 0V11m0-6.5a1.5 1.5 0 0 1 3 0V11m0-4.5a1.5 1.5 0 0 1 3 0V13c0 4.5-2.6 8-7 8-3.2 0-4.9-1.5-6.2-4.1-.7-1.4-1.6-3.5-2-4.6-.3-.9.1-1.8 1-2.1.7-.3 1.5 0 2 .6L8 13.5" />
+  </svg>
+);
+
+export const ArrowDownIcon = ({ size = 16, className }: IconProps) => (
+  <svg
+    className={className}
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden
+  >
+    <path d="M12 4v15m0 0l-6-6m6 6l6-6" />
+  </svg>
+);
+
+export const ArrowRightIcon = ({ size = 16, className }: IconProps) => (
+  <svg
+    className={className}
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden
+  >
+    <path d="M4 12h15m0 0l-6-6m6 6l-6 6" />
   </svg>
 );

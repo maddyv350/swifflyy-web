@@ -1,131 +1,216 @@
-import { useEffect, useRef } from 'react';
+import { useLayoutEffect, useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
-import { Underline } from './Underline';
-import { PhoneMockup } from './PhoneMockup';
+import { hero } from '../config/site';
 import { MagneticButton } from './MagneticButton';
+import { Underline } from './Underline';
+import { Avatar } from './ui';
+import { PinIcon, HeartIcon, ArrowDownIcon } from './icons';
 
-interface HeroProps {
-  animate: boolean;
-}
+/**
+ * The one unforgettable moment: an oversized Fraunces headline over a warm
+ * coral/plum gradient mesh, staggered line reveal, and floating app-fragment
+ * cards that drift with the pointer.
+ */
+export function Hero({ animate }: { animate: boolean }) {
+  const root = useRef<HTMLElement>(null);
 
-/** Two-column hero: pitch copy on the left, the animated phone on the right. */
-export function Hero({ animate }: HeroProps) {
-  const leftRef = useRef<HTMLDivElement>(null);
-  const phoneRef = useRef<HTMLDivElement>(null);
-
-  // Entrance: stagger the left column up on load.
-  useEffect(() => {
-    if (!animate || !leftRef.current) return;
-    const items = leftRef.current.querySelectorAll<HTMLElement>('[data-hero]');
+  // Entrance: masked headline lines rise first, then the supporting cast.
+  // Skipped when JS boots late (slow network/device): the page is prerendered,
+  // so re-hiding text someone is already reading would be jank — and it would
+  // push LCP to the end of the animation.
+  useLayoutEffect(() => {
+    if (!animate || !root.current) return;
+    if (performance.now() > 2500) return;
     const ctx = gsap.context(() => {
-      gsap.from(items, {
-        opacity: 0,
-        y: 24,
-        duration: 0.9,
-        ease: 'power3.out',
-        stagger: 0.1,
-        delay: 0.15,
-      });
-    });
+      gsap
+        .timeline({ delay: 0.12, defaults: { ease: 'power4.out' } })
+        .from('[data-line-inner]', { yPercent: 115, duration: 1.1, stagger: 0.1 })
+        .from(
+          '[data-fade]',
+          { opacity: 0, y: 18, duration: 0.8, ease: 'power3.out', stagger: 0.09 },
+          '-=0.7',
+        )
+        .from(
+          '[data-fragment]',
+          { opacity: 0, scale: 0.85, y: 16, duration: 0.7, ease: 'back.out(1.7)', stagger: 0.12 },
+          '-=0.6',
+        );
+    }, root);
     return () => ctx.revert();
   }, [animate]);
 
-  // Sticker badges bob gently, out of phase, like they're pinned to the page.
+  // Depth: fragments lean gently with the pointer (desktop only).
   useEffect(() => {
-    if (!animate) return;
-    const ctx = gsap.context(() => {
-      gsap.to('[data-sticker]', {
-        y: -7,
-        duration: 2.2,
-        ease: 'sine.inOut',
-        repeat: -1,
-        yoyo: true,
-        stagger: 0.55,
-      });
-    });
-    return () => ctx.revert();
-  }, [animate]);
-
-  // Subtle pointer parallax/tilt on the phone (desktop, motion-on only).
-  useEffect(() => {
-    if (!animate) return;
-    const el = phoneRef.current;
-    if (!el || window.matchMedia('(max-width: 900px)').matches) return;
-
-    const quickX = gsap.quickTo(el, 'rotationY', { duration: 0.6, ease: 'power3' });
-    const quickY = gsap.quickTo(el, 'rotationX', { duration: 0.6, ease: 'power3' });
+    if (!animate || !root.current) return;
+    if (window.matchMedia('(max-width: 1024px)').matches) return;
+    const frags = Array.from(root.current.querySelectorAll<HTMLElement>('[data-fragment]'));
+    const movers = frags.map((el) => ({
+      x: gsap.quickTo(el, 'x', { duration: 0.9, ease: 'power3' }),
+      y: gsap.quickTo(el, 'y', { duration: 0.9, ease: 'power3' }),
+      depth: Number(el.dataset.depth || 12),
+    }));
     const onMove = (e: PointerEvent) => {
       const nx = (e.clientX / window.innerWidth) * 2 - 1;
       const ny = (e.clientY / window.innerHeight) * 2 - 1;
-      quickX(nx * 6);
-      quickY(-ny * 5);
+      movers.forEach((m) => {
+        m.x(nx * m.depth);
+        m.y(ny * m.depth * 0.7);
+      });
     };
     window.addEventListener('pointermove', onMove, { passive: true });
     return () => window.removeEventListener('pointermove', onMove);
   }, [animate]);
 
   return (
-    <section id="top" className="relative overflow-hidden bg-paper">
-      {/* subtle dot grid */}
-      <div className="dot-grid pointer-events-none absolute inset-0 opacity-35" aria-hidden />
+    <section ref={root} id="top" className="grain relative overflow-hidden">
+      {/* gradient mesh atmosphere */}
+      <div aria-hidden className="pointer-events-none absolute inset-0">
+        <div
+          className="absolute -right-[12%] -top-[18%] h-[480px] w-[480px] rounded-full opacity-70 blur-[90px] md:h-[52vw] md:w-[52vw] motion-safe:animate-mesh-drift"
+          style={{
+            background: 'radial-gradient(closest-side, rgb(var(--coral-300) / 0.75), transparent 72%)',
+          }}
+        />
+        <div
+          className="absolute -bottom-[22%] -left-[14%] h-[440px] w-[440px] rounded-full opacity-60 blur-[90px] md:h-[46vw] md:w-[46vw] motion-safe:animate-mesh-drift-2"
+          style={{
+            background: 'radial-gradient(closest-side, rgb(var(--plum-300) / 0.65), transparent 72%)',
+          }}
+        />
+        <div
+          className="absolute left-[28%] top-[8%] h-[320px] w-[320px] rounded-full opacity-50 blur-[80px]"
+          style={{
+            background: 'radial-gradient(closest-side, rgb(var(--coral-100)), transparent 70%)',
+          }}
+        />
+        {/* faint paper dot grid, fading out towards the edges */}
+        <div
+          className="absolute inset-0 opacity-60 [mask-image:radial-gradient(70%_60%_at_50%_42%,#000,transparent)]"
+          style={{
+            backgroundImage: 'radial-gradient(circle, rgb(var(--cream-400) / 0.55) 1px, transparent 1px)',
+            backgroundSize: '26px 26px',
+          }}
+        />
+      </div>
 
-      <div className="mx-auto grid min-h-[100svh] max-w-[1280px] grid-cols-1 items-center gap-12 px-6 pb-20 pt-28 md:grid-cols-2 md:gap-[60px] md:px-10 md:pt-[120px]">
-        {/* left */}
-        <div ref={leftRef} className="flex flex-col gap-7 md:gap-8">
-          <span data-hero className="inline-block -rotate-1 self-start font-hand text-[22px] text-accent">
-            ✦ launching soon
-          </span>
+      <div className="wrap relative flex min-h-[100svh] flex-col items-center justify-center pb-28 pt-32 text-center">
+        <span data-fade className="eyebrow text-[24px]">
+          {hero.eyebrow}
+        </span>
 
-          <h1
-            data-hero
-            className="font-head text-[clamp(48px,6vw,80px)] font-extrabold leading-[1.0] tracking-[-2.5px] text-ink"
-            style={{ textWrap: 'pretty' }}
-          >
-            Meet people
-            <br />
-            <span className="relative inline-block text-accent">
-              where you are
-              <Underline />
+        <h1 className="font-display text-[clamp(52px,9.2vw,116px)] font-semibold leading-[0.98] tracking-[-0.03em] text-ink">
+          {hero.headline.map((line, i) => {
+            const last = i === hero.headline.length - 1;
+            return (
+              <span key={line} className="block overflow-hidden pb-[0.08em] [margin-bottom:-0.08em]">
+                <span data-line-inner className="block will-change-transform">
+                  {last ? (
+                    <em className="relative inline-block not-italic">
+                      <span className="italic text-coral-600">{line}</span>
+                      <Underline className="text-coral-500" />
+                    </em>
+                  ) : (
+                    line
+                  )}
+                </span>
+              </span>
+            );
+          })}
+        </h1>
+
+        {/* No entrance fade on this paragraph: it's the page's LCP element —
+            hiding it after the prerendered paint would re-time LCP to the
+            animation's end. The headline mask reveal above carries the moment. */}
+        <p className="lede mx-auto mt-7 text-center text-[17px] sm:text-lg">
+          {hero.sub}
+        </p>
+
+        <div data-fade className="mt-9 flex flex-wrap items-center justify-center gap-4">
+          <MagneticButton href={hero.primaryCta.href} enabled={animate} className="btn-primary">
+            {hero.primaryCta.label}
+          </MagneticButton>
+          <a href={hero.secondaryCta.href} className="btn-ghost">
+            {hero.secondaryCta.label}
+          </a>
+        </div>
+
+        <p data-fade className="mt-7 -rotate-1 font-hand text-[19px] text-ink-3">
+          {hero.note} ✦
+        </p>
+
+        {/* floating app fragments — the depth layer (large screens only) */}
+        <div
+          data-fragment
+          data-depth="16"
+          className="absolute left-[3%] top-[24%] hidden -rotate-[5deg] xl:block motion-safe:animate-pin-float"
+        >
+          <div className="flex items-center gap-3 rounded-2xl border border-ink/10 bg-cream-25/90 px-4 py-3 shadow-lift backdrop-blur-sm">
+            <span className="flex">
+              <Avatar name="Priya" tone={0} size={34} />
+              <Avatar name="Rahul" tone={1} size={34} className="-ml-2.5" />
             </span>
-          </h1>
-
-          <p data-hero className="max-w-[440px] font-body text-xl leading-[1.55] text-muted">
-            Drop a pin at your favourite spot. See who’s nearby. Connect with people who share your
-            world — not just your algorithm.
-          </p>
-
-          <div data-hero className="flex flex-wrap items-center gap-4">
-            <MagneticButton href="#waitlist" enabled={animate} className="btn-stack">
-              <span className="btn-stack-shadow bg-line/85" />
-              <span className="btn-ink">Get early access</span>
-            </MagneticButton>
-            <a href="#try" className="btn-ghost">
-              Try the swipe demo →
-            </a>
-          </div>
-
-          <div data-hero className="-rotate-1 font-hand text-[18px] text-faint">
-            free to join · launching city by city ✦
+            <span className="text-left">
+              <span className="block text-[13px] font-bold text-ink">It’s a match</span>
+              <span className="block text-[11.5px] text-ink-3">Priya & Rahul · 200 m apart</span>
+            </span>
+            <HeartIcon size={16} className="text-coral-500" />
           </div>
         </div>
 
-        {/* right */}
-        <div className="relative flex items-center justify-center [perspective:1200px]">
-          <div className="absolute -top-5 right-5 hidden rotate-2 font-hand text-[18px] text-muted md:block">
-            drop your pin ↓
+        <div
+          data-fragment
+          data-depth="22"
+          className="absolute right-[4%] top-[31%] hidden rotate-[3deg] xl:block motion-safe:animate-pin-float [animation-delay:0.8s]"
+        >
+          <div className="flex items-center gap-2 rounded-full border border-ink/10 bg-cream-25/90 px-4 py-2.5 shadow-lift backdrop-blur-sm">
+            <PinIcon size={15} className="text-coral-600" />
+            <span className="text-[13px] font-bold text-ink">Koramangala</span>
+            <span aria-hidden className="h-1 w-1 rounded-full bg-ink/25" />
+            <span className="text-[12.5px] tabular-nums text-ink-3">pin live · 42:10</span>
           </div>
+        </div>
 
-          {/* floating sticker badges */}
-          <div data-sticker className="absolute left-0 top-6 z-10 hidden -rotate-6 rounded-full border-[1.5px] border-line bg-paper px-3 py-1.5 font-body text-[13px] font-semibold text-ink shadow-sketch-sm md:block">
-            no situationships 🙅
+        <div
+          data-fragment
+          data-depth="12"
+          className="absolute bottom-[17%] left-[7%] hidden rotate-[2deg] xl:block motion-safe:animate-pin-float [animation-delay:1.6s]"
+        >
+          <div className="w-[190px] rounded-2xl border border-ink/10 bg-cream-25/90 p-3 shadow-lift backdrop-blur-sm">
+            <span className="block w-fit rounded-2xl rounded-bl-md bg-cream-100 px-3 py-1.5 text-left text-[12.5px] font-medium text-ink">
+              coffee in 20?
+            </span>
+            <span className="mt-1.5 ml-auto block w-fit rounded-2xl rounded-br-md bg-coral-600 px-3 py-1.5 text-[12.5px] font-medium text-cream-25">
+              already here.
+            </span>
           </div>
-          <div data-sticker className="absolute -bottom-2 right-8 z-10 hidden rotate-3 rounded-full border-[1.5px] border-accent bg-accent-soft px-3 py-1.5 font-body text-[13px] font-semibold text-accent shadow-sketch-sm md:block">
-            230m away ✦
-          </div>
+        </div>
 
-          <div ref={phoneRef} className="[transform-style:preserve-3d]">
-            <PhoneMockup />
+        <div
+          data-fragment
+          data-depth="26"
+          className="absolute bottom-[24%] right-[8%] hidden -rotate-[4deg] xl:block motion-safe:animate-pin-float [animation-delay:2.2s]"
+        >
+          <div className="flex items-center gap-2 rounded-full border border-coral-500/30 bg-coral-50/90 px-4 py-2.5 shadow-lift backdrop-blur-sm">
+            <span className="text-[13px] font-bold text-coral-700">selfie-verified</span>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path
+                d="M4.5 12.5l5 5L19.5 7"
+                stroke="rgb(var(--coral-600))"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </div>
+        </div>
+
+        {/* scroll cue */}
+        <div
+          data-fade
+          className="absolute bottom-7 left-1/2 flex -translate-x-1/2 flex-col items-center gap-0.5 text-ink-3"
+        >
+          <span className="font-hand text-[18px]">take a stroll</span>
+          <ArrowDownIcon size={15} className="motion-safe:animate-bounce" />
         </div>
       </div>
     </section>

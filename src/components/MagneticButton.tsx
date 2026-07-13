@@ -28,7 +28,7 @@ export function MagneticButton({
     const r = ref.current.getBoundingClientRect();
     const x = e.clientX - (r.left + r.width / 2);
     const y = e.clientY - (r.top + r.height / 2);
-    gsap.to(ref.current, { x: x * 0.3, y: y * 0.4, duration: 0.4, ease: 'power3.out' });
+    gsap.to(ref.current, { x: x * 0.28, y: y * 0.38, duration: 0.4, ease: 'power3.out' });
   };
 
   const reset = () => {

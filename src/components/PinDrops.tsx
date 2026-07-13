@@ -7,8 +7,7 @@ const MAX_LIVE = 8;
  * Click anywhere → a little map pin drops in with a bounce and a ripple, then
  * fades away. The product's core gesture ("drop a pin"), made physical across
  * the whole page. Skips interactive elements and anything marked
- * [data-no-pin] (e.g. the draggable swipe deck), and is disabled entirely for
- * reduced-motion users via the `enabled` prop.
+ * [data-no-pin], and is disabled entirely for reduced-motion users.
  */
 export function PinDrops({ enabled }: { enabled: boolean }) {
   const host = useRef<HTMLDivElement>(null);
@@ -26,10 +25,10 @@ export function PinDrops({ enabled }: { enabled: boolean }) {
       wrap.style.cssText = `position:absolute;left:${x}px;top:${y}px;transform:translate(-50%,-100%);`;
       wrap.innerHTML = `
         <svg width="26" height="32" viewBox="0 0 26 32" style="display:block;transform-origin:50% 100%" data-pin>
-          <path d="M13 1 C6 1 1 6 1 12.5 C1 21 13 31 13 31 C13 31 25 21 25 12.5 C25 6 20 1 13 1 Z" fill="#d94f3a" stroke="#2a2724" stroke-width="1.5"/>
-          <circle cx="13" cy="12.5" r="4.5" fill="#fbf8f1" stroke="#2a2724" stroke-width="1.5"/>
+          <path d="M13 1 C6 1 1 6 1 12.5 C1 21 13 31 13 31 C13 31 25 21 25 12.5 C25 6 20 1 13 1 Z" fill="#e25b3e" stroke="#1f0f1a" stroke-width="1.5"/>
+          <circle cx="13" cy="12.5" r="4.5" fill="#fbf7ef" stroke="#1f0f1a" stroke-width="1.5"/>
         </svg>
-        <span data-ring style="position:absolute;left:50%;bottom:-4px;width:26px;height:10px;transform:translateX(-50%);border:1.5px solid #d94f3a;border-radius:50%;opacity:0"></span>`;
+        <span data-ring style="position:absolute;left:50%;bottom:-4px;width:26px;height:10px;transform:translateX(-50%);border:1.5px solid #e25b3e;border-radius:50%;opacity:0"></span>`;
       root.appendChild(wrap);
 
       const pin = wrap.querySelector('[data-pin]');
@@ -54,7 +53,7 @@ export function PinDrops({ enabled }: { enabled: boolean }) {
 
     const onDown = (e: PointerEvent) => {
       const t = e.target as HTMLElement | null;
-      if (t?.closest('a,button,input,textarea,select,label,[data-no-pin]')) return;
+      if (t?.closest('a,button,input,textarea,select,label,summary,[data-no-pin]')) return;
       spawn(e.clientX, e.clientY);
     };
 

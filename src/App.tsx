@@ -8,12 +8,11 @@ import { Hero } from './components/Hero';
 import { Marquee } from './components/Marquee';
 import { HowItWorks } from './components/HowItWorks';
 import { SwipeDeck } from './components/SwipeDeck';
-import { Statement } from './components/Statement';
-import { Features } from './components/Features';
-import { VibePicker } from './components/VibePicker';
-import { MapSection } from './components/MapSection';
+import { Why } from './components/Why';
+import { Safety } from './components/Safety';
+import { Cities } from './components/Cities';
 import { FAQ } from './components/FAQ';
-import { DownloadCTA } from './components/DownloadCTA';
+import { FinalCTA } from './components/FinalCTA';
 import { Footer } from './components/Footer';
 
 export default function App() {
@@ -27,17 +26,16 @@ export default function App() {
       <ScrollProgress />
       <PinDrops enabled={animate} />
       <Navbar />
-      <main>
+      <main id="main">
         <Hero animate={animate} />
         <Marquee />
         <HowItWorks animate={animate} />
         <SwipeDeck animate={animate} />
-        <Statement animate={animate} />
-        <Features animate={animate} />
-        <VibePicker animate={animate} />
-        <MapSection animate={animate} />
+        <Why animate={animate} />
+        <Safety animate={animate} />
+        <Cities animate={animate} />
         <FAQ animate={animate} />
-        <DownloadCTA />
+        <FinalCTA animate={animate} />
       </main>
       <Footer />
     </>

@@ -1,0 +1,16 @@
+{
+  "name": "Swifflyy",
+  "short_name": "Swifflyy",
+  "description": "A location-first dating app. Meet people where you are.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#fbf7ef",
+  "theme_color": "#fbf7ef",
+  "icons": [
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ]
+}

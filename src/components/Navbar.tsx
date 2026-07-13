@@ -2,50 +2,68 @@ import { useEffect, useState } from 'react';
 import { site } from '../config/site';
 import { Wordmark } from './Wordmark';
 
-/** Fixed cream nav that gains a soft drop shadow once you scroll. */
+/**
+ * Fixed nav that starts transparent over the hero and condenses into a
+ * floating glass pill once you scroll.
+ */
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
   return (
-    <nav
-      className="fixed inset-x-0 top-0 z-[100] flex items-center justify-between border-b-[1.5px] border-paper3 bg-paper px-6 py-[18px] transition-shadow duration-200 md:px-10"
-      style={scrolled ? { boxShadow: '0 4px 24px rgba(31,29,27,0.06)' } : undefined}
-      aria-label="Primary"
-    >
+    <header className="fixed inset-x-0 top-0 z-[100] px-3 sm:px-5">
       <a
-        href="#top"
-        aria-label={`${site.name} home`}
-        className="inline-block transition-transform duration-200 hover:-rotate-3 hover:scale-105"
+        href="#main"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[110] focus:rounded-full focus:bg-plum-950 focus:px-5 focus:py-3 focus:text-sm focus:font-bold focus:text-cream-50"
       >
-        <Wordmark className="text-[34px]" />
+        Skip to content
       </a>
+      <nav
+        aria-label="Primary"
+        className={`mx-auto flex items-center justify-between transition-all duration-300 ease-out ${
+          scrolled
+            ? 'mt-3 max-w-[980px] rounded-full border border-ink/10 bg-cream-25/85 px-5 py-2.5 shadow-lift backdrop-blur-md sm:px-6'
+            : 'mt-0 max-w-[1200px] border border-transparent bg-transparent px-2 py-5 sm:px-3'
+        }`}
+      >
+        <a
+          href="#top"
+          aria-label="Swifflyy home"
+          className="inline-block pb-1.5 transition-transform duration-200 ease-out hover:-rotate-3 hover:scale-105"
+        >
+          <Wordmark className="text-[30px]" />
+        </a>
 
-      <ul className="hidden items-center gap-8 md:flex">
-        {site.navLinks.map((l) => (
-          <li key={l.href}>
-            <a
-              href={l.href}
-              className="font-body text-[15px] font-medium text-muted no-underline transition-colors hover:text-ink"
-            >
-              {l.label}
-            </a>
-          </li>
-        ))}
-      </ul>
+        <ul className="hidden items-center gap-7 lg:flex">
+          {site.navLinks.map((l) => (
+            <li key={l.href}>
+              <a
+                href={l.href}
+                className="group relative text-[15px] font-medium text-ink-2 no-underline transition-colors duration-200 hover:text-ink"
+              >
+                {l.label}
+                <span
+                  aria-hidden
+                  className="absolute -bottom-1 left-0 h-[2px] w-full origin-left scale-x-0 rounded-full bg-coral-500 transition-transform duration-300 ease-out group-hover:scale-x-100"
+                />
+              </a>
+            </li>
+          ))}
+        </ul>
 
-      <a href="#waitlist" className="relative inline-flex">
-        <span aria-hidden className="absolute rounded-xl bg-line/80" style={{ inset: '3px -3px -3px 3px' }} />
-        <span className="relative cursor-pointer rounded-xl border-[1.5px] border-line bg-ink px-[22px] py-[11px] font-body text-[13px] font-bold uppercase tracking-[2px] text-paper transition-transform duration-100 hover:translate-x-px hover:-translate-y-px">
+        <a
+          href="#waitlist"
+          className={`btn-ink !px-5 !text-[13.5px] ${scrolled ? '!py-2.5' : '!py-3'}`}
+        >
           Early access
-        </span>
-      </a>
-    </nav>
+        </a>
+      </nav>
+    </header>
   );
 }

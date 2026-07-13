@@ -5,7 +5,7 @@
 export function Underline({ className = '' }: { className?: string }) {
   return (
     <svg
-      className={`pointer-events-none absolute -bottom-1.5 -left-1 h-3.5 w-[calc(100%+8px)] ${className}`}
+      className={`pointer-events-none absolute -bottom-2 -left-1 h-3.5 w-[calc(100%+8px)] ${className}`}
       viewBox="0 0 200 14"
       preserveAspectRatio="none"
       aria-hidden

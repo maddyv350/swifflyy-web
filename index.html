@@ -18,56 +18,93 @@
     </script>
     <!-- End Google Tag Manager -->
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#fbf8f1" />
+    <meta name="theme-color" content="#fbf7ef" />
 
-    <title>Swifflyy — Meet people where you are</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="canonical" href="https://swifflyy.com/" />
+
+    <title>Swifflyy — Love, within walking distance</title>
     <meta
       name="description"
-      content="Swifflyy is a location-first dating app, launching soon city by city. Drop a pin at a place you love, discover people nearby, and connect with people who share your world — not just your algorithm. Join the early-access list."
+      content="Swifflyy is a location-first dating app, launching city by city across India — Bengaluru first. Drop a pin at a place you love, discover verified people nearby, and match with someone close enough to actually meet. Join the early-access list."
     />
 
     <!-- Open Graph / social share -->
     <meta property="og:site_name" content="Swifflyy" />
-    <meta property="og:title" content="Swifflyy — Meet people where you are" />
+    <meta property="og:title" content="Swifflyy — Love, within walking distance" />
     <meta
       property="og:description"
-      content="A location-first dating app, launching soon. Drop a pin. See who's nearby. Connect with people who share your world. Join the early-access list."
+      content="A location-first dating app, launching city by city across India. Drop a pin. See who’s really nearby. Join the early-access list."
     />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://swifflyy.com/" />
-    <!-- og:image: the branded card is designed at public/og-image.svg. Major
-         scrapers (X/Facebook/LinkedIn) don't render SVG, so rasterize it once to
-         a 1200×630 PNG and uncomment below:
-             rsvg-convert public/og-image.svg -o public/og-image.png
-         (or drop the SVG into any online SVG→PNG tool). Critical for the
-         share-driven waitlist — a link with no image gets far fewer clicks.
     <meta property="og:image" content="https://swifflyy.com/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta name="twitter:image" content="https://swifflyy.com/og-image.png" />
-    -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Swifflyy — Meet people where you are" />
+    <meta name="twitter:title" content="Swifflyy — Love, within walking distance" />
     <meta
       name="twitter:description"
-      content="A location-first dating app, launching soon. Drop a pin. See who's nearby. Join the early-access list."
+      content="A location-first dating app, launching city by city across India. Drop a pin. See who’s really nearby. Join the early-access list."
     />
+    <meta name="twitter:image" content="https://swifflyy.com/og-image.png" />
 
-    <!-- Privacy-friendly analytics. Create the site in Plausible (or Umami) for
-         swifflyy.com, then uncomment to start measuring signup + share rates.
-    <script defer data-domain="swifflyy.com" src="https://plausible.io/js/script.js"></script>
-    -->
-
-
-    <!-- Fonts: Bricolage Grotesque (display) · Hanken Grotesk (body) · Caveat (hand) -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Self-hosted fonts: preload only what the first paint needs. -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=Caveat:wght@500;600;700&family=Hanken+Grotesk:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      href="/fonts/fraunces-latin-full-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
     />
+    <link
+      rel="preload"
+      href="/fonts/fraunces-latin-full-italic.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/fonts/hanken-grotesk-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://swifflyy.com/#org",
+            "name": "Swifflyy",
+            "url": "https://swifflyy.com/",
+            "logo": "https://swifflyy.com/apple-touch-icon.png",
+            "email": "hello@swifflyy.com"
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://swifflyy.com/#website",
+            "url": "https://swifflyy.com/",
+            "name": "Swifflyy",
+            "publisher": { "@id": "https://swifflyy.com/#org" }
+          },
+          {
+            "@type": "MobileApplication",
+            "name": "Swifflyy",
+            "operatingSystem": "ANDROID, IOS",
+            "applicationCategory": "LifestyleApplication",
+            "description": "A location-first dating app for India. Drop a pin, discover verified people nearby, match and meet.",
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+          }
+        ]
+      }
+    </script>
   </head>
   <body>
     <!-- Google Tag Manager (noscript) -->

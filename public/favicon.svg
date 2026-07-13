@@ -1,11 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="14" fill="#fbf8f1" stroke="#2a2724" stroke-width="2.5" />
-  <!-- coral teardrop map pin -->
-  <path
-    d="M32 12 C 22 12, 16 20, 18 28 C 20 37, 27 44, 32 52 C 37 44, 44 37, 46 28 C 48 20, 42 12, 32 12 Z"
-    fill="#d94f3a"
-    stroke="#2a2724"
-    stroke-width="2"
-  />
-  <circle cx="32" cy="26" r="5" fill="#fbf8f1" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Swifflyy: coral pin on warm paper -->
+  <rect width="64" height="64" rx="14" fill="#fbf7ef"/>
+  <path d="M32 56S13 39.5 13 26.5C13 15.7 21.5 8 32 8s19 7.7 19 18.5C51 39.5 32 56 32 56Z" fill="#e25b3e" stroke="#1f0f1a" stroke-width="3"/>
+  <circle cx="32" cy="26.5" r="7" fill="#fbf7ef" stroke="#1f0f1a" stroke-width="3"/>
 </svg>

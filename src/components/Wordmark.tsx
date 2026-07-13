@@ -2,12 +2,20 @@ import { site } from '../config/site';
 
 /**
  * The hand-written brand wordmark with a coral squiggle underline. Size is
- * driven by the `text-*` class you pass (font-size cascades to the SVG width).
+ * driven by the `text-*` class you pass. `tone` flips it for dark surfaces.
  */
-export function Wordmark({ className = '' }: { className?: string }) {
+export function Wordmark({
+  className = '',
+  tone = 'light',
+}: {
+  className?: string;
+  tone?: 'light' | 'dark';
+}) {
   return (
     <span
-      className={`relative inline-block font-hand font-bold leading-none tracking-[-1px] text-accent ${className}`}
+      className={`relative inline-block font-hand font-bold leading-none tracking-[-1px] ${
+        tone === 'light' ? 'text-coral-600' : 'text-coral-300'
+      } ${className}`}
     >
       {site.name}
       <svg

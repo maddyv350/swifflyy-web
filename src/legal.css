@@ -1,0 +1,97 @@
+/* Minimal on-brand styling for the static legal pages. */
+@font-face {
+  font-family: 'Fraunces Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('/fonts/fraunces-latin-full-normal.woff2') format('woff2-variations');
+}
+@font-face {
+  font-family: 'Hanken Grotesk Variable';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('/fonts/hanken-grotesk-latin-wght-normal.woff2') format('woff2-variations');
+}
+
+:root {
+  --cream: #fbf7ef;
+  --ink: #241521;
+  --ink-2: #594753;
+  --coral: #c64328;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--cream);
+  color: var(--ink);
+  font-family: 'Hanken Grotesk Variable', 'Avenir Next', 'Segoe UI', sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+.legal {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 64px 24px 96px;
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: 40px;
+  color: var(--coral);
+  font-weight: 700;
+  text-decoration: none;
+}
+.back:hover {
+  text-decoration: underline;
+}
+
+h1 {
+  font-family: 'Fraunces Variable', Georgia, serif;
+  font-variation-settings: 'SOFT' 55, 'WONK' 1;
+  font-size: 52px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+  margin: 0 0 8px;
+}
+
+h2 {
+  font-family: 'Fraunces Variable', Georgia, serif;
+  font-variation-settings: 'SOFT' 55, 'WONK' 1;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 40px 0 8px;
+}
+
+.updated {
+  color: var(--ink-2);
+  font-size: 14px;
+  margin-bottom: 40px;
+}
+
+p,
+li {
+  color: var(--ink-2);
+  font-size: 16px;
+}
+
+strong {
+  color: var(--ink);
+}
+
+a {
+  color: var(--coral);
+}
+
+ul {
+  padding-left: 22px;
+}
+li {
+  margin-bottom: 8px;
+}

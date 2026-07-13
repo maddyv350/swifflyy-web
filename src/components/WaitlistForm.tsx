@@ -52,7 +52,9 @@ export function WaitlistForm() {
   return (
     <form onSubmit={onSubmit} className="mx-auto mt-10 flex max-w-md flex-col items-stretch gap-3">
       {referredBy && (
-        <p className="-mt-2 mb-1 font-hand text-lg text-accent-soft">✦ a friend sent you — nice taste</p>
+        <p className="-mt-2 mb-1 -rotate-1 font-hand text-[19px] text-coral-300">
+          ✦ a friend sent you — nice taste
+        </p>
       )}
       <div className="flex flex-col gap-3 sm:flex-row">
         <input
@@ -66,13 +68,10 @@ export function WaitlistForm() {
           placeholder={waitlist.placeholder}
           aria-label="Email address"
           aria-invalid={status === 'error'}
-          className="min-w-0 flex-1 rounded-[14px] border-[1.5px] border-paper/25 bg-paper/[0.04] px-5 py-4 font-body text-[15px] text-paper placeholder:text-paper/35 outline-none transition-colors focus:border-paper/60"
+          className="min-w-0 flex-1 rounded-full border-[1.5px] border-cream-50/20 bg-cream-50/[0.05] px-5 py-4 text-[15px] text-cream-50 outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-cream-50/50 focus:border-coral-400 focus:shadow-ring"
         />
-        <button type="submit" disabled={status === 'loading'} className="btn-stack shrink-0">
-          <span className="btn-stack-shadow bg-accent/60" />
-          <span className="btn-coral !px-8 !py-4 disabled:opacity-70">
-            {status === 'loading' ? 'Joining…' : waitlist.cta}
-          </span>
+        <button type="submit" disabled={status === 'loading'} className="btn-primary shrink-0 disabled:opacity-70">
+          {status === 'loading' ? 'Joining…' : waitlist.cta}
         </button>
       </div>
       <input
@@ -81,10 +80,10 @@ export function WaitlistForm() {
         onChange={(e) => setCity(e.target.value)}
         placeholder="your city (optional) — we launch city by city"
         aria-label="Your city (optional)"
-        className="w-full rounded-[14px] border-[1.5px] border-paper/20 bg-paper/[0.04] px-5 py-3.5 font-body text-[14px] text-paper placeholder:text-paper/30 outline-none transition-colors focus:border-paper/50"
+        className="w-full rounded-full border-[1.5px] border-cream-50/15 bg-cream-50/[0.05] px-5 py-3.5 text-[14px] text-cream-50 outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-cream-50/50 focus:border-coral-400 focus:shadow-ring"
       />
       {status === 'error' && (
-        <p role="alert" className="font-body text-[13px] text-accent-soft">
+        <p role="alert" className="text-[13.5px] font-medium text-coral-300">
           {waitlist.error}
         </p>
       )}
