@@ -261,18 +261,26 @@
     @apply flex shrink-0 items-center;
     animation: marquee-scroll 36s linear infinite;
   }
-  .marquee:hover .marquee-track {
+  .marquee:hover .marquee-track,
+  .marquee:focus-within .marquee-track {
     animation-play-state: paused;
   }
 
   /* ── FAQ accordion (grid-rows height trick) ─────────────── */
+  /* visibility keeps collapsed answers out of the accessibility tree and
+     in-page find, matching aria-expanded. It transitions discretely: hiding
+     waits for the collapse to finish; showing is instant on expand. */
   .faq-body {
     display: grid;
     grid-template-rows: 0fr;
-    transition: grid-template-rows 0.35s var(--ease-out);
+    visibility: hidden;
+    transition:
+      grid-template-rows 0.35s var(--ease-out),
+      visibility 0.35s;
   }
   .faq-body.is-open {
     grid-template-rows: 1fr;
+    visibility: visible;
   }
   .faq-body > div {
     overflow: hidden;

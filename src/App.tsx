@@ -3,6 +3,8 @@ import { useSmoothScroll } from './hooks/useSmoothScroll';
 
 import { ScrollProgress } from './components/ScrollProgress';
 import { PinDrops } from './components/PinDrops';
+import { InkCursor } from './components/InkCursor';
+import { JourneyLine } from './components/JourneyLine';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Marquee } from './components/Marquee';
@@ -25,10 +27,12 @@ export default function App() {
     <>
       <ScrollProgress />
       <PinDrops enabled={animate} />
-      <Navbar />
-      <main id="main">
+      <InkCursor enabled={animate} />
+      <Navbar animate={animate} />
+      <main id="main" className="relative">
+        <JourneyLine animate={animate} />
         <Hero animate={animate} />
-        <Marquee />
+        <Marquee animate={animate} />
         <HowItWorks animate={animate} />
         <SwipeDeck animate={animate} />
         <Why animate={animate} />
@@ -37,7 +41,7 @@ export default function App() {
         <FAQ animate={animate} />
         <FinalCTA animate={animate} />
       </main>
-      <Footer />
+      <Footer animate={animate} />
     </>
   );
 }

@@ -1,0 +1,46 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Swifflyy motion foundation styles
+   Imported once in src/main.tsx (after index.css). Plain CSS on purpose —
+   nothing here participates in Tailwind layers.
+   ───────────────────────────────────────────────────────────────────────── */
+
+/* ── Ink cursor (InkCursor.tsx) ──────────────────────────────
+   The dot/ring/label live inside a fixed wrapper that GSAP moves via
+   transforms; everything is centered on the pointer with negative offsets.
+   All motion (scale, fades) is driven from JS — CSS only paints. */
+.ink-cursor-dot {
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 9999px;
+  background: rgb(var(--coral-500));
+}
+
+.ink-cursor-ring {
+  position: absolute;
+  left: -18px;
+  top: -18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  border: 2.5px solid rgb(var(--coral-500));
+  transform: scale(0); /* JS swells it; harmless if JS never runs (0 = invisible ring, dot remains) */
+}
+
+.ink-cursor-label {
+  position: absolute;
+  left: 22px;
+  top: -30px;
+  font-size: 19px;
+  line-height: 1;
+  font-weight: 600;
+  white-space: nowrap;
+  color: rgb(var(--coral-600));
+  transform: rotate(-5deg);
+  opacity: 0; /* JS fades it in; decorative only */
+}
+
+/* == section additions == */
+/* Integration: append CSS requested by section agents below this line. */
