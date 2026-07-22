@@ -8,7 +8,7 @@ export const site = {
   name: 'swifflyy',
   tagline: 'Meet people where you are',
   url: 'https://swifflyy.com',
-  email: 'hello@swifflyy.com',
+  email: 'support@swifflyy.com',
   navLinks: [
     { label: 'How it works', href: '#how' },
     { label: 'Try it', href: '#try' },
@@ -37,7 +37,7 @@ export const waitlist = {
 } as const;
 
 export const hero = {
-  eyebrow: 'launching soon — Bengaluru first ✦',
+  eyebrow: 'launching soon — six cities across India ✦',
   /** Rendered one line per entry, with the last line set in coral italic. */
   headline: ['Love, within', 'walking distance.'],
   sub: 'Swifflyy is a location-first dating app. Drop a pin at a place you love — your café, your park, your street — and meet the people who already share it.',
@@ -185,10 +185,14 @@ export const safety = {
 
 export const cities = {
   eyebrow: 'city by city',
-  title: 'Bengaluru first. Your city next.',
-  sub: 'Swifflyy opens neighbourhood by neighbourhood, so the map is never empty. Tell us your city when you join the list — enough neighbours, and you’re next.',
-  first: 'Bengaluru',
-  next: ['Delhi NCR', 'Mumbai', 'Pune', 'Hyderabad', 'Chennai'],
+  title: 'Six cities to start.',
+  /** Set in coral italic, on the same line as `title`. */
+  titleEm: 'Yours next.',
+  sub: 'Swifflyy opens neighbourhood by neighbourhood, so the map is never empty. We’re starting across six cities — tell us yours when you join the list, and enough neighbours means you’re next.',
+  /** The centre of the napkin map. */
+  hub: 'India',
+  /** Launch cities, in the order they appear on the map and in the mobile column. */
+  launch: ['Chandigarh', 'Delhi NCR', 'Lucknow', 'Mumbai', 'Pune', 'Bengaluru'],
   cta: 'Be the pin that starts your city',
 } as const;
 
@@ -207,7 +211,7 @@ export const faqs = [
   },
   {
     q: 'When does it launch?',
-    a: 'Soon, city by city — Bengaluru first. Join the early-access list with your city and you’ll get an email the moment Swifflyy goes live in your neighbourhood.',
+    a: 'Soon, city by city — starting with Chandigarh, Delhi NCR, Lucknow, Mumbai, Pune and Bengaluru. Join the early-access list with your city and you’ll get an email the moment Swifflyy goes live in your neighbourhood.',
   },
   {
     q: 'How do you keep it safe?',
@@ -215,8 +219,15 @@ export const faqs = [
   },
 ] as const;
 
+/** Where we actually are. `icon` maps to a component in `components/icons.tsx`. */
+export const social = [
+  { label: 'Instagram', href: 'https://www.instagram.com/swifflyy/', icon: 'instagram' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/company/swifflyy/', icon: 'linkedin' },
+] as const;
+
 export const footer = {
   tagline: 'Meet people where you are.',
+  madeIn: 'made with ♥ in India',
   linkGroups: [
     {
       title: 'Product',
@@ -232,7 +243,7 @@ export const footer = {
       links: [
         { label: 'FAQ', href: '#faq' },
         { label: 'Early access', href: '#waitlist' },
-        { label: 'Contact', href: 'mailto:hello@swifflyy.com' },
+        { label: 'Contact', href: 'mailto:support@swifflyy.com' },
       ],
     },
     {

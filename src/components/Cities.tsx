@@ -12,8 +12,9 @@ gsap.registerPlugin(ScrollTrigger);
 
 /* ── The map corner of the napkin ──────────────────────────────
    An abstract hand-drawn constellation (deliberately NOT geography —
-   "not to scale, obviously"). Bengaluru is the big coral pin; wobbly
-   dashed routes draw themselves outward to the next five cities. */
+   "not to scale, obviously"). India is the big coral pin at the centre;
+   wobbly dashed routes draw themselves outward to the six launch cities,
+   which sit loosely where they'd fall on a map: north up, south down. */
 
 const VB = { w: 760, h: 400 } as const;
 const HUB = { x: 368, y: 192 } as const;
@@ -26,12 +27,14 @@ interface Spot {
   route: string;
 }
 
-/** One spot per entry in `cities.next`, laid out like a constellation. */
+/** One spot per entry in `cities.launch`, laid out like a constellation. */
 const SPOTS: readonly Spot[] = [
   { x: 118, y: 64, route: 'M 358 181 C 318 166, 296 144, 258 132 C 220 120, 170 96, 126 71' },
+  /* stops short of the pin so the dashes don't run through the label below it */
+  { x: 336, y: 40, route: 'M 368 174 C 366 150, 358 126, 348 106 C 345 100, 342 96, 340 92' },
+  { x: 612, y: 92, route: 'M 384 181 C 428 160, 468 146, 518 126 C 550 114, 584 100, 608 94' },
   { x: 86, y: 300, route: 'M 354 201 C 310 222, 274 232, 232 254 C 196 272, 142 286, 94 297' },
   { x: 272, y: 352, route: 'M 360 210 C 350 248, 336 280, 312 314 C 304 326, 290 338, 278 348' },
-  { x: 612, y: 92, route: 'M 384 181 C 428 160, 468 146, 518 126 C 550 114, 584 100, 608 94' },
   { x: 656, y: 320, route: 'M 382 203 C 436 226, 480 244, 532 272 C 570 292, 614 308, 650 317' },
 ];
 
@@ -86,8 +89,7 @@ export function Cities({ animate }: { animate: boolean }) {
           {cities.eyebrow}
         </span>
         <h2 data-reveal className="title mx-auto max-w-[700px]">
-          {cities.first} first.{' '}
-          <em className="italic text-coral-600">Your city next.</em>
+          {cities.title} <em className="italic text-coral-600">{cities.titleEm}</em>
         </h2>
         <p data-reveal className="lede mx-auto text-center">
           {cities.sub}
@@ -139,21 +141,21 @@ export function Cities({ animate }: { animate: boolean }) {
               ))}
             </svg>
 
-            {/* Bengaluru — the big coral pin. Tap it: confetti. */}
+            {/* India — the big coral pin the routes fan out from. Tap it: confetti. */}
             <button
               type="button"
               onClick={onHubClick}
               data-cursor="tap"
-              aria-label={`${cities.first} — our first city`}
+              aria-label={`${cities.hub} — where Swifflyy is launching`}
               className="group absolute z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center"
               style={{ left: pct(HUB.x, VB.w), top: pct(HUB.y, VB.h) }}
             >
               <span data-hub-pin className="relative flex h-11 w-11 items-center justify-center will-change-transform">
                 <span
                   aria-hidden
-                  className="pointer-events-none absolute -top-7 left-1/2 w-max -translate-x-1/2 -rotate-3 font-hand text-[21px] leading-none text-coral-600"
+                  className="pointer-events-none absolute left-full top-1/2 ml-2 w-max -translate-y-1/2 -rotate-3 font-hand text-[21px] leading-none text-coral-600"
                 >
-                  first ✦
+                  launching ✦
                 </span>
                 <span
                   aria-hidden
@@ -164,11 +166,11 @@ export function Cities({ animate }: { animate: boolean }) {
                   className="relative text-coral-500 transition-transform duration-200 ease-spring group-hover:scale-110"
                 />
               </span>
-              <span className="mt-1.5 text-[14.5px] font-bold text-ink">{cities.first}</span>
+              <span className="mt-1.5 text-[14.5px] font-bold text-ink">{cities.hub}</span>
             </button>
 
-            {/* the next cities — small ink pins with sticker tooltips */}
-            {cities.next.map((name, i) => {
+            {/* the launch cities — small ink pins with sticker tooltips */}
+            {cities.launch.map((name, i) => {
               const spot = SPOTS[i % SPOTS.length];
               return (
                 <a
@@ -248,7 +250,7 @@ export function Cities({ animate }: { animate: boolean }) {
               aria-hidden
               className="absolute -top-8 left-1/2 w-max -translate-x-1/2 -rotate-3 font-hand text-[19px] text-coral-600"
             >
-              first ✦
+              launching ✦
             </span>
             <button
               type="button"
@@ -263,11 +265,11 @@ export function Cities({ animate }: { animate: boolean }) {
                 />
                 <PinIcon size={15} />
               </span>
-              {cities.first}
+              {cities.hub}
             </button>
           </div>
 
-          {cities.next.map((name, i) => (
+          {cities.launch.map((name, i) => (
             <div key={name} className="flex flex-col items-center">
               <svg
                 aria-hidden

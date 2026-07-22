@@ -169,6 +169,45 @@ export const ArrowDownIcon = ({ size = 16, className }: IconProps) => (
   </svg>
 );
 
+export const InstagramIcon = ({ size = 18, className }: IconProps) => (
+  <svg
+    className={className}
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.9"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden
+  >
+    <rect x="3" y="3" width="18" height="18" rx="5.4" />
+    <circle cx="12" cy="12" r="4.1" />
+    <path d="M17.2 6.9h.01" />
+  </svg>
+);
+
+export const LinkedInIcon = ({ size = 18, className }: IconProps) => (
+  <svg
+    className={className}
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="1.9"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden
+  >
+    <rect x="3" y="3" width="18" height="18" rx="4.2" />
+    <path d="M7.6 10.4v6.4" />
+    <path d="M7.6 7.4h.01" />
+    <path d="M11.6 16.8v-6.4m0 1.7a2.7 2.7 0 0 1 4.8 1.7v3" />
+  </svg>
+);
+
 export const ArrowRightIcon = ({ size = 16, className }: IconProps) => (
   <svg
     className={className}

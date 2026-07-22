@@ -1,8 +1,14 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { gsap } from 'gsap';
-import { site, footer } from '../config/site';
+import { site, footer, social } from '../config/site';
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion';
 import { burstConfetti } from '../lib/confetti';
+import { InstagramIcon, LinkedInIcon } from './icons';
+
+const SOCIAL_ICONS = {
+  instagram: InstagramIcon,
+  linkedin: LinkedInIcon,
+} as const;
 
 /**
  * The big hand-written wordmark, split into per-letter spans so each letter
@@ -121,9 +127,28 @@ export function Footer({ animate }: { animate?: boolean }) {
           <div className="max-w-[280px]">
             <HopWordmark animate={shouldAnimate} />
             <p className="mt-5 text-[15px] leading-relaxed text-cream-50/55">{footer.tagline}</p>
-            <p className="mt-4 -rotate-1 font-hand text-[18px] text-plum-300">
-              made with ♥ in Bengaluru
-            </p>
+            <p className="mt-4 -rotate-1 font-hand text-[18px] text-plum-300">{footer.madeIn}</p>
+
+            {/* socials — hand-drawn glyphs in little ink circles */}
+            <ul className="mt-6 flex items-center gap-3">
+              {social.map((s) => {
+                const Icon = SOCIAL_ICONS[s.icon];
+                return (
+                  <li key={s.label}>
+                    <a
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`${site.name} on ${s.label}`}
+                      data-cursor="tap"
+                      className="flex h-10 w-10 items-center justify-center rounded-full border-[1.5px] border-cream-50/20 text-cream-50/65 no-underline transition-[color,border-color,transform] duration-200 ease-spring hover:-translate-y-0.5 hover:border-coral-400 hover:text-coral-300 focus-visible:border-coral-400 focus-visible:text-coral-300"
+                    >
+                      <Icon size={18} />
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
           </div>
 
           {/* links */}
