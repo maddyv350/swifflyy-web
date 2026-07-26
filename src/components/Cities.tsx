@@ -146,7 +146,7 @@ export function Cities({ animate }: { animate: boolean }) {
               type="button"
               onClick={onHubClick}
               data-cursor="tap"
-              aria-label={`${cities.hub} — where Swifflyy is launching`}
+              aria-label={`${cities.hub} - where Swifflyy is launching`}
               className="group absolute z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center"
               style={{ left: pct(HUB.x, VB.w), top: pct(HUB.y, VB.h) }}
             >
@@ -177,7 +177,7 @@ export function Cities({ animate }: { animate: boolean }) {
                   key={name}
                   href="#waitlist"
                   data-cursor="tap"
-                  aria-label={`${name} — join the waitlist`}
+                  aria-label={`${name} - join the waitlist`}
                   className="group absolute z-10 flex -translate-x-1/2 -translate-y-1/2 flex-col items-center no-underline"
                   style={{ left: pct(spot.x, VB.w), top: pct(spot.y, VB.h) }}
                 >
@@ -289,7 +289,7 @@ export function Cities({ animate }: { animate: boolean }) {
               </svg>
               <a
                 href="#waitlist"
-                aria-label={`${name} — join the waitlist`}
+                aria-label={`${name} - join the waitlist`}
                 className="group flex items-center gap-2 rounded-full border-[1.5px] border-dashed border-ink/25 py-2.5 pl-5 pr-4 text-[15px] font-semibold text-ink-2 no-underline transition-colors duration-200 hover:border-coral-500 hover:text-coral-700"
               >
                 {name}

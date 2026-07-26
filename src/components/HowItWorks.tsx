@@ -516,7 +516,7 @@ function Stage() {
       {/* Caveat margin notes */}
       <div data-note1 className="absolute right-[1%] top-[13%] flex w-[170px] flex-col items-start gap-1">
         <span className="rotate-2 font-hand text-[19px] leading-[1.15] text-coral-600">
-          your pin — lifts in 60 min
+          your pin - lifts in 60 min
         </span>
         <DoodleArrow size={34} className="-scale-x-100 rotate-[24deg] text-coral-500" />
       </div>

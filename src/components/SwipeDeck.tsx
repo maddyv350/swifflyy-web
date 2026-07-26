@@ -432,13 +432,13 @@ export function SwipeDeck({ animate }: { animate: boolean }) {
       <div className="wrap relative">
         <div ref={headRef} className="text-center">
           <span data-reveal className="eyebrow">
-            try it — no download
+            try it - no download
           </span>
           <h2 data-reveal className="title">
             Go on. <em className="italic text-coral-600">Swipe.</em>
           </h2>
           <p data-reveal className="lede mx-auto text-center">
-            Drag a card, or tap the buttons. This is how discovery feels in the app — minus the
+            Drag a card, or tap the buttons. This is how discovery feels in the app - minus the
             part where these are real, verified people near you.
           </p>
         </div>
@@ -535,7 +535,7 @@ export function SwipeDeck({ animate }: { animate: boolean }) {
                   You &amp; {match.name} both said yes
                 </h3>
                 <p className="text-sm leading-relaxed text-ink-2">
-                  In the app, a chat opens right here — starting with where you crossed paths.
+                  In the app, a chat opens right here - starting with where you crossed paths.
                 </p>
                 <button
                   ref={keepSwipingRef}
@@ -625,7 +625,7 @@ function PayoffCard({
       <div ref={drawRef} className="flex flex-col items-center gap-4">
         <DoodleHeart size={40} className="-rotate-6 text-coral-500" />
         <p className="-rotate-1 font-hand text-[26px] leading-snug text-ink">
-          that’s the whole demo deck — the real one is your neighbourhood
+          that’s the whole demo deck - the real one is your neighbourhood
         </p>
         <DoodleSquiggle size={64} className="text-coral-400" />
         <p className="text-sm text-ink-3">

@@ -4,7 +4,7 @@ import { shareLink } from '../lib/referral';
 import { burstConfetti } from '../lib/confetti';
 
 const SHARE_TEXT =
-  'I just grabbed early access to Swifflyy — a location-first dating app. Drop a pin, meet people where you actually are. Join with my link:';
+  'I just grabbed early access to Swifflyy - a location-first dating app. Drop a pin, meet people where you actually are. Join with my link:';
 
 /**
  * Post-signup "napkin ticket": confirms the spot and hands the person a

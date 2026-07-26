@@ -133,8 +133,8 @@ export function FinalCTA({ animate }: { animate: boolean }) {
           </span>
         </h2>
         <p data-reveal className="mx-auto mt-6 max-w-[520px] text-lg leading-[1.65] text-plum-200">
-          Join the list with your city. When Swifflyy lands in your neighbourhood, you — and the
-          friends you bring — walk in first.
+          Join the list with your city. When Swifflyy lands in your neighbourhood, you - and the
+          friends you bring - walk in first.
         </p>
 
         <div data-reveal ref={drawRef} className="relative mx-auto mt-12 max-w-[560px]">
@@ -164,7 +164,7 @@ export function FinalCTA({ animate }: { animate: boolean }) {
         </div>
 
         <p data-reveal className="mt-8 font-hand text-[19px] text-plum-300">
-          one email when we land in your city — no spam, ever ✦
+          one email when we land in your city - no spam, ever ✦
         </p>
       </div>
     </section>

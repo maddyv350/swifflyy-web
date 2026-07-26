@@ -53,7 +53,7 @@ export function WaitlistForm() {
     <form onSubmit={onSubmit} className="mx-auto mt-10 flex max-w-md flex-col items-stretch gap-3">
       {referredBy && (
         <p className="-mt-2 mb-1 -rotate-1 font-hand text-[19px] text-coral-300">
-          ✦ a friend sent you — nice taste
+          ✦ a friend sent you - nice taste
         </p>
       )}
       <div className="flex flex-col gap-3 sm:flex-row">
@@ -78,7 +78,7 @@ export function WaitlistForm() {
         type="text"
         value={city}
         onChange={(e) => setCity(e.target.value)}
-        placeholder="your city (optional) — we launch city by city"
+        placeholder="your city (optional) - we launch city by city"
         aria-label="Your city (optional)"
         className="w-full rounded-full border-[1.5px] border-cream-50/15 bg-cream-50/[0.05] px-5 py-3.5 text-[14px] text-cream-50 outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-cream-50/50 focus:border-coral-400 focus:shadow-ring"
       />
