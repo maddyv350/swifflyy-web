@@ -150,7 +150,7 @@ export const why = {
     },
     {
       title: 'Priced for India',
-      body: 'The core experience is free. A ₹9 day pass unlocks the extras when you want them - no bloated monthly subscription doing the guilt-tripping.',
+      body: 'The core experience is free. A ₹29 day pass unlocks the extras when you want them - no bloated monthly subscription doing the guilt-tripping.',
     },
   ],
 } as const;
@@ -207,7 +207,7 @@ export const faqs = [
   },
   {
     q: 'Is it free?',
-    a: 'Yes - joining, dropping pins, discovering people and matching are free. A ₹9 day pass unlocks a few extras when you want them; the core experience costs nothing.',
+    a: 'Yes - joining, dropping pins, discovering people and matching are free. A ₹29 day pass unlocks a few extras when you want them; the core experience costs nothing.',
   },
   {
     q: 'When does it launch?',
