@@ -60,6 +60,22 @@ await page.emulateMediaFeatures([{ name: 'prefers-reduced-motion', value: 'reduc
 await page.setRequestInterception(true);
 page.on('request', (req) => {
   if (req.url().includes('googletagmanager.com')) req.abort();
+  // Answer the coming-soon flag deterministically so the snapshot never
+  // depends on live API state or latency. Default bakes the full site;
+  // PRERENDER_GATE=1 bakes the teaser instead (a "stealth" build whose HTML
+  // reveals nothing while the gate is up). Visitors always get the *live*
+  // verdict at runtime either way — this only decides the pre-hydration
+  // paint and what crawlers see.
+  else if (req.url().includes('/app/site-config'))
+    req.respond({
+      status: 200,
+      headers: { 'access-control-allow-origin': '*' },
+      contentType: 'application/json',
+      body: JSON.stringify({
+        success: true,
+        data: { comingSoon: Boolean(process.env.PRERENDER_GATE) },
+      }),
+    });
   else req.continue();
 });
 await page.goto(`http://localhost:${port}/`, { waitUntil: 'networkidle0' });
@@ -69,6 +85,8 @@ await new Promise((r) => setTimeout(r, 400));
 let html = await page.evaluate(() => {
   // Lenis stamps classes on <html> at runtime; keep the snapshot clean.
   document.documentElement.className = '';
+  // The coming-soon boot stamps data-gate; live loads must decide it fresh.
+  delete document.documentElement.dataset.gate;
   // The GTM bootstrap injected this tag at runtime — it must not be baked in,
   // or the live page would load gtm.js twice (the bootstrap re-injects it).
   document.querySelectorAll('script[src*="googletagmanager.com"]').forEach((s) => s.remove());

@@ -7,6 +7,8 @@
 export const site = {
   name: 'swifflyy',
   tagline: 'Meet people where you are',
+  /** The browser-tab title — keep in sync with the <title> in index.html. */
+  docTitle: 'Swifflyy - Love, within walking distance',
   url: 'https://swifflyy.com',
   email: 'support@swifflyy.com',
   navLinks: [
@@ -34,6 +36,34 @@ export const waitlist = {
   success: 'You’re on the list ✦',
   successSub: 'We’ll email you the moment Swifflyy lands in your neighbourhood.',
   error: 'Hmm, that didn’t go through. Mind trying again?',
+} as const;
+
+/**
+ * The pre-launch "dropping soon" gate. The admin panel (Website page) flips
+ * `comingSoonEnabled` on the platform API; every page load asks for it and
+ * shows either the full site or the teaser (`GateScreen`) — nothing on the
+ * site itself changes. See src/lib/gate.ts for the boot sequence and
+ * index.html for the pre-paint hold that stops the real page flashing first.
+ */
+export const gate = {
+  /** Public flag endpoint on the platform API (no auth, CORS-open). */
+  endpoint: 'https://api.swifflyy.com/api/v1/app/site-config',
+  /** How long to wait for the flag before falling back (ms). */
+  timeoutMs: 2500,
+  /**
+   * What a visitor with no cached answer sees when the flag can't be fetched.
+   * 'gated' keeps the launch a secret even through an API outage — flip to
+   * 'open' in the launch-day redeploy so an outage can never hide the live
+   * site from first-time visitors.
+   */
+  fallback: 'gated' as 'gated' | 'open',
+  /** Browser-tab title while the gate is up (the real one names the product). */
+  title: 'swifflyy ✦ dropping soon',
+  eyebrow: 'shh… something’s cooking',
+  /** Rendered after the big wordmark; the second part gets the coral underline. */
+  line: ['is dropping ', 'soon.'],
+  note: 'six cities. zero spoilers. ✦',
+  follow: 'follow along',
 } as const;
 
 export const hero = {

@@ -63,6 +63,10 @@ export default {
           '100%': { transform: 'scale(1.9)', opacity: '0' },
         },
         blink: { '50%': { opacity: '0' } },
+        rise: {
+          from: { opacity: '0', transform: 'translateY(16px)' },
+          to: { opacity: '1', transform: 'translateY(0)' },
+        },
       },
       animation: {
         'pin-float': 'pin-float 3s ease-in-out infinite',
@@ -70,6 +74,7 @@ export default {
         'mesh-drift-2': 'mesh-drift-2 26s ease-in-out infinite',
         'radar-ping': 'radar-ping 2.6s cubic-bezier(0.22, 1, 0.36, 1) infinite',
         blink: 'blink 1.1s step-end infinite',
+        rise: 'rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both',
       },
     },
   },
