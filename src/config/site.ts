@@ -61,8 +61,8 @@ export const gate = {
   title: 'swifflyy ✦ dropping soon',
   eyebrow: 'shh… something’s cooking',
   /** Rendered after the big wordmark; the second part gets the coral underline. */
-  line: ['is dropping ', 'soon.'],
-  note: 'six cities. zero spoilers. ✦',
+  line: ['is dropping soon ', 'to Church Street.'],
+  note: 'zero spoilers. ✦',
   follow: 'follow along',
 } as const;
 
