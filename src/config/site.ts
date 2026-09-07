@@ -281,6 +281,7 @@ export const footer = {
       links: [
         { label: 'Privacy', href: '/privacy.html' },
         { label: 'Terms', href: '/terms.html' },
+        { label: 'Content Policy', href: '/content-policy.html' },
       ],
     },
   ],
