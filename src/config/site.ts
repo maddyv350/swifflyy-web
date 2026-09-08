@@ -282,6 +282,8 @@ export const footer = {
         { label: 'Privacy', href: '/privacy.html' },
         { label: 'Terms', href: '/terms.html' },
         { label: 'Content Policy', href: '/content-policy.html' },
+        { label: 'Child Safety', href: '/child-safety.html' },
+        { label: 'Delete account', href: '/delete-account.html' },
       ],
     },
   ],
