@@ -12,7 +12,16 @@ const SHARE_TEXT =
  * loop is the growth engine — every friend who joins with this link is
  * attributed to them.
  */
-export function WaitlistTicket({ code, city }: { code: string; city?: string }) {
+export function WaitlistTicket({
+  code,
+  city,
+  position,
+}: {
+  code: string;
+  city?: string;
+  /** The person's place in the list, from the API (absent in demo mode). */
+  position?: number;
+}) {
   const [copied, setCopied] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
   const link = shareLink(code);
@@ -69,6 +78,11 @@ export function WaitlistTicket({ code, city }: { code: string; city?: string }) 
         <div className="px-7 pb-6 pt-3">
           <div className="font-display text-[27px] font-semibold leading-tight text-cream-50">
             You’re on the list.
+            {position ? (
+              <span className="ml-2 -rotate-2 inline-block font-hand text-[22px] font-normal text-coral-300">
+                #{position}
+              </span>
+            ) : null}
           </div>
           <p className="mt-2 text-[15px] leading-[1.55] text-cream-50/65">
             {city ? (

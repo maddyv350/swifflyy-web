@@ -57,6 +57,26 @@ like the app rather than a generic template.
 11. **Download CTA** + **Footer** (dark).
 12. A thin coral **scroll-progress bar** pinned to the top throughout.
 
+### The other pages
+
+- **`/waitlist/`** ([waitlist/index.html](waitlist/index.html) →
+  [`src/waitlist.tsx`](src/waitlist.tsx) → [`WaitlistPage`](src/components/WaitlistPage.tsx))
+  — the standalone link we share while the landing page is behind the
+  coming-soon gate (it is deliberately NOT gated). "Swifflyy is dropping soon
+  to Church Street, Bengaluru" and two ways in: the email ticket (the same
+  `WaitlistForm`, now posting to the platform API — `waitlist.endpoint` in
+  `site.ts`, which also makes the landing page's form real) or **setting up the
+  whole profile now** at `/join/`. Copy lives in `waitlistPage` in `site.ts`.
+- **`/join/`** — the app's onboarding (phone → OTP → the full profile stepper →
+  "dropping soon to Church Street") **built with Flutter for the browser** and
+  committed under [`public/join/`](public/join/), which Vite copies verbatim
+  into `dist/join/`. It is *not* built by this repo's toolchain: run
+  `npm run build:join` (→ `../swifflyy/tooling/build_web_join.sh`, needs the
+  Flutter SDK and the sibling `swifflyy/` checkout) and commit the result
+  whenever the app's onboarding changes. No face verification on the web — that
+  stays in the app.
+- The legal pages (`privacy.html`, `terms.html`, …) are plain static HTML.
+
 ---
 
 ## Project structure
@@ -127,3 +147,6 @@ src/
 - App-store buttons are placeholders linking to `#download`; swap the `href`s
   once the app ships.
 - The swipe deck is a demo with sample profiles in `site.ts` — not wired to a backend.
+- The waitlist form IS wired: `POST https://api.swifflyy.com/api/v1/app/waitlist`
+  (see scanmate-platform). Signups are listed/exported in the admin panel's
+  Waitlist page. Set `waitlist.endpoint` to `''` for demo mode.

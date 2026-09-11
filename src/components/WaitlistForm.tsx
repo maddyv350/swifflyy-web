@@ -16,6 +16,7 @@ export function WaitlistForm() {
   const [city, setCity] = useState('');
   const [status, setStatus] = useState<Status>('idle');
   const [code, setCode] = useState('');
+  const [position, setPosition] = useState<number | undefined>(undefined);
   const referredBy = useReferral();
 
   const onSubmit = async (e: FormEvent) => {
@@ -28,6 +29,8 @@ export function WaitlistForm() {
       city: city.trim() || undefined,
       ref,
       referredBy: referredBy || undefined,
+      // Which form this came from: the landing page or /waitlist.
+      source: window.location.pathname.startsWith('/waitlist') ? 'waitlist-page' : 'web',
     };
     try {
       if (waitlist.endpoint) {
@@ -37,6 +40,8 @@ export function WaitlistForm() {
           body: JSON.stringify(payload),
         });
         if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+        const json = (await res.json().catch(() => null)) as { data?: { position?: number } } | null;
+        if (typeof json?.data?.position === 'number') setPosition(json.data.position);
       }
       setCode(ref);
       setStatus('done');
@@ -46,7 +51,7 @@ export function WaitlistForm() {
   };
 
   if (status === 'done') {
-    return <WaitlistTicket code={code} city={city.trim() || undefined} />;
+    return <WaitlistTicket code={code} city={city.trim() || undefined} position={position} />;
   }
 
   return (

@@ -11,7 +11,7 @@ const scale = (family, steps) =>
   Object.fromEntries(steps.map((s) => [s, token(`${family}-${s}`)]));
 
 export default {
-  content: ['./index.html', './privacy.html', './terms.html', './src/**/*.{ts,tsx}'],
+  content: ['./index.html', './waitlist/index.html', './privacy.html', './terms.html', './src/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {

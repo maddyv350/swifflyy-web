@@ -21,16 +21,17 @@ export const site = {
 } as const;
 
 /**
- * Early-access waitlist. Point `endpoint` at your form/waitlist provider's
- * POST URL (Formspree, Buttondown, GetWaitlist, LaunchList, a serverless
- * function, …). It receives JSON `{ email, city, ref, referredBy }` and should
- * return a 2xx on success.
+ * Early-access waitlist. `endpoint` is the platform API's public signup route
+ * (scanmate-platform `POST /app/waitlist`): it receives JSON
+ * `{ email, city, ref, referredBy, source }`, dedupes on the email, and answers
+ * `{ data: { position } }` — the person's place in the list, shown on the
+ * ticket. The admin panel's Waitlist page lists and exports the signups.
  *
- * Leave `endpoint: ''` to run the form in DEMO mode — it accepts input and
- * shows the success state but stores nothing. Swap in a real URL to go live.
+ * Set `endpoint: ''` to run the form in DEMO mode — it accepts input and
+ * shows the success state but stores nothing.
  */
 export const waitlist = {
-  endpoint: '',
+  endpoint: 'https://api.swifflyy.com/api/v1/app/waitlist',
   placeholder: 'you@email.com',
   cta: 'Get early access',
   success: 'You’re on the list ✦',
@@ -64,6 +65,41 @@ export const gate = {
   line: ['is dropping soon ', 'to Church Street.'],
   note: 'zero spoilers. ✦',
   follow: 'follow along',
+} as const;
+
+/**
+ * swifflyy.com/waitlist — the standalone page we share while the landing page
+ * is gated. Two ways in: the email signup above, or the full profile set-up
+ * at `full.href` (the app's onboarding built for the browser, see
+ * swifflyy/tooling/build_web_join.sh; it lives at public/join/).
+ */
+export const waitlistPage = {
+  chip: 'church street, bengaluru',
+  eyebrow: 'dropping soon ✦',
+  headline: ['Be there when Swifflyy', 'drops.'],
+  sub: 'We’re launching first on Church Street, Bengaluru. Two ways to be in the room when it happens - pick whichever suits you.',
+  quick: {
+    stamp: 'your ticket in ✦',
+    kicker: '01 · the quick way',
+    title: 'Save my spot',
+    body: 'Leave your email and we’ll write the moment Swifflyy lands. Thirty seconds, no app needed.',
+  },
+  full: {
+    stamp: 'the head start ✦',
+    kicker: '02 · the whole thing, now',
+    title: 'Set up my profile today',
+    body: 'Do the full sign-up right here in your browser - and walk in on launch day with a finished profile while everyone else is still typing.',
+    points: [
+      'Sign in with your mobile number - a code by SMS, no passwords.',
+      'Photos, prompts, the lot: the same steps as the app, about five minutes.',
+      'Your profile waits for launch day. Open the app, sign in, you’re live.',
+      'The selfie check for your ✓ happens in the app - it’s the one step we save for later.',
+    ],
+    cta: 'Set up my profile',
+    href: '/join/',
+    note: 'started already? same link, same number - it picks up where you left off.',
+  },
+  footnote: 'one text when we go live on Church Street - no spam, ever ✦',
 } as const;
 
 export const hero = {
@@ -273,6 +309,7 @@ export const footer = {
       links: [
         { label: 'FAQ', href: '#faq' },
         { label: 'Early access', href: '#waitlist' },
+        { label: 'Waitlist', href: '/waitlist/' },
         { label: 'Contact', href: 'mailto:support@swifflyy.com' },
       ],
     },

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Replaced by `flutter build web --base-href /join/` (tooling/build_web_join.sh). -->
+  <base href="/join/">
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Set up your Swifflyy profile before we launch on Church Street, Bengaluru. Sign in with your mobile number and finish in about five minutes.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#fbf8f1">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Swifflyy">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Swifflyy · set up your profile</title>
+  <link rel="manifest" href="manifest.json">
+
+  <style>
+    /* The app's own Caveat, served from the Flutter asset bundle. */
+    @font-face {
+      font-family: 'Caveat';
+      font-weight: 700;
+      font-display: swap;
+      src: url('assets/assets/fonts/google/Caveat-Bold.ttf') format('truetype');
+    }
+    html, body { margin: 0; height: 100%; background: #fbf8f1; }
+    /* Paper splash: covers the blank canvas until Flutter paints its first
+       frame (see the flutter-first-frame listener below). */
+    #splash {
+      position: fixed; inset: 0; z-index: 10;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background: #fbf8f1; color: #1f1d1b;
+      transition: opacity .25s ease;
+    }
+    #splash .mark {
+      font-family: 'Caveat', 'Segoe Script', 'Bradley Hand', cursive;
+      font-size: 56px; font-weight: 700; color: #d94f3a; letter-spacing: -1.5px; line-height: 1;
+    }
+    #splash .sub {
+      margin-top: 10px;
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      font-size: 11px; letter-spacing: 3px; text-transform: uppercase; color: #7a766f;
+    }
+    #splash .pen {
+      width: 40px; height: 40px; margin-top: 28px; border-radius: 50%;
+      border: 1.5px solid #2a2724; border-top-color: #d94f3a;
+      animation: spin 1s linear infinite;
+    }
+    #splash.gone { opacity: 0; pointer-events: none; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+  <div id="splash" aria-hidden="true">
+    <div class="mark">swifflyy</div>
+    <div class="sub">setting things up</div>
+    <div class="pen"></div>
+  </div>
+  <script>
+    window.addEventListener('flutter-first-frame', function () {
+      var splash = document.getElementById('splash');
+      if (!splash) return;
+      splash.classList.add('gone');
+      setTimeout(function () { splash.remove(); }, 300);
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
