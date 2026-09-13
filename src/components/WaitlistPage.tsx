@@ -1,16 +1,17 @@
 import { site, social, waitlistPage, footer } from '../config/site';
 import { Wordmark } from './Wordmark';
 import { Underline } from './Underline';
-import { WaitlistForm } from './WaitlistForm';
 import { DoodlePin, DoodleArrow, DoodleSparkle } from './doodles';
 import { InstagramIcon, LinkedInIcon, ArrowRightIcon } from './icons';
 
 /**
- * The /waitlist page: "Swifflyy is dropping soon to Church Street" and the two
- * ways in — the thirty-second email signup (the same form as the landing
- * page, in its dark ticket card) or setting up the full profile today at
- * /join/ (the app's onboarding, running in the browser). Napkin look
- * throughout; CSS-only motion so it boots instantly.
+ * The /waitlist page: "Swifflyy is dropping soon to Church Street" and the one
+ * way in — setting up the full profile today at /join/ (the app's onboarding,
+ * running in the browser). Napkin look throughout; CSS-only motion so it boots
+ * instantly.
+ *
+ * The email-only signup card that sat beside this one was removed while SES is
+ * in sandbox — see the note on `waitlistPage` in config/site.ts.
  */
 export function WaitlistPage() {
   const rise = (delay: number) => ({ animationDelay: `${delay}s` });
@@ -77,46 +78,14 @@ export function WaitlistPage() {
           </div>
         </section>
 
-        {/* the two ways in */}
+        {/* the way in */}
         <section className="wrap relative pb-20 md:pb-28">
-          <div className="grid gap-6 md:grid-cols-2 md:gap-8">
-            {/* 01 — the quick way: the ticket card, same as the landing page */}
+          <div className="mx-auto max-w-[620px]">
+            {/* the head start: set up the whole profile at /join/ */}
             <div
               id="waitlist"
-              className="relative rounded-[26px] border-[1.5px] border-ink bg-plum-950 px-6 pb-8 pt-9 shadow-[5px_6px_0_rgb(var(--coral-500)/0.85)] motion-safe:animate-rise sm:px-8"
-              style={rise(0.4)}
-            >
-              {/* glow + grain clipped to the card, so the stamp above can hang over the edge */}
-              <div aria-hidden className="grain pointer-events-none absolute inset-0 overflow-hidden rounded-[24px]">
-                <div
-                  className="absolute -top-[40%] left-1/2 h-[380px] w-[520px] -translate-x-1/2 opacity-50 blur-[100px]"
-                  style={{ background: 'radial-gradient(closest-side, rgb(var(--coral-500) / 0.6), transparent 70%)' }}
-                />
-              </div>
-              <span
-                aria-hidden
-                className="absolute -top-3.5 left-7 -rotate-3 rounded-md border-[1.5px] border-ink bg-cream-25 px-2.5 py-0.5 font-hand text-[17px] leading-tight text-ink shadow-stamp-sm"
-              >
-                {waitlistPage.quick.stamp}
-              </span>
-              <div className="relative">
-                <span className="text-[12px] font-bold uppercase tracking-[0.18em] text-plum-300">
-                  {waitlistPage.quick.kicker}
-                </span>
-                <h2 className="mt-2 font-display text-[34px] font-semibold leading-[1.04] tracking-[-0.02em] text-cream-50">
-                  {waitlistPage.quick.title}
-                </h2>
-                <p className="mt-3 text-[15.5px] leading-[1.6] text-plum-200">{waitlistPage.quick.body}</p>
-                <div className="-mt-4">
-                  <WaitlistForm />
-                </div>
-              </div>
-            </div>
-
-            {/* 02 — the head start: set up the whole profile at /join/ */}
-            <div
               className="card-stamp relative px-6 pb-8 pt-9 motion-safe:animate-rise sm:px-8"
-              style={rise(0.5)}
+              style={rise(0.4)}
             >
               <span
                 aria-hidden
