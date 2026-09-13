@@ -2,7 +2,7 @@ import { site, social, waitlistPage, footer } from '../config/site';
 import { Wordmark } from './Wordmark';
 import { Underline } from './Underline';
 import { DoodlePin, DoodleArrow, DoodleSparkle } from './doodles';
-import { InstagramIcon, LinkedInIcon, ArrowRightIcon } from './icons';
+import { InstagramIcon, ArrowRightIcon } from './icons';
 
 /**
  * The /waitlist page: "Swifflyy is dropping soon to Church Street" and the one
@@ -15,7 +15,6 @@ import { InstagramIcon, LinkedInIcon, ArrowRightIcon } from './icons';
  */
 export function WaitlistPage() {
   const rise = (delay: number) => ({ animationDelay: `${delay}s` });
-  const legal = footer.linkGroups.find((g) => g.title === 'Legal')?.links ?? [];
 
   return (
     <div className="flex min-h-[100svh] flex-col bg-cream-50 text-ink">
@@ -143,13 +142,12 @@ export function WaitlistPage() {
           <span>
             © {new Date().getFullYear()} {site.name} · {footer.madeIn}
           </span>
-          <nav aria-label="Legal" className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
-            {legal.map((l) => (
-              <a key={l.href} href={l.href} className="no-underline hover:text-ink">
-                {l.label}
-              </a>
-            ))}
-            {social.map((s) => (
+          {/* Legal links and LinkedIn were taken off this page on 13 Sep 2026.
+              The policy pages stay deployed (the store listings link them),
+              and the /join sign-in screen still links the policies at the
+              point where data is actually collected. */}
+          <nav aria-label="Social" className="flex items-center gap-x-4">
+            {social.filter((s) => s.icon === 'instagram').map((s) => (
               <a
                 key={s.label}
                 href={s.href}
@@ -158,7 +156,7 @@ export function WaitlistPage() {
                 aria-label={`${site.name} on ${s.label}`}
                 className="text-ink-3 hover:text-ink"
               >
-                {s.icon === 'instagram' ? <InstagramIcon size={16} /> : <LinkedInIcon size={16} />}
+                <InstagramIcon size={16} />
               </a>
             ))}
           </nav>
