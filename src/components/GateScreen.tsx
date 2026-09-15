@@ -66,7 +66,7 @@ export function GateScreen() {
         </h1>
 
         <p
-          className="mt-8 font-display text-[clamp(28px,4.6vw,48px)] font-semibold leading-tight tracking-[-0.02em] text-ink motion-safe:animate-rise"
+          className="mt-8 font-display text-[clamp(24px,4.6vw,48px)] font-semibold leading-tight tracking-[-0.02em] text-ink motion-safe:animate-rise"
           style={rise(0.35)}
         >
           {gate.line[0]}
