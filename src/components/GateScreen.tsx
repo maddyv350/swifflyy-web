@@ -1,12 +1,14 @@
-import { gate, social } from '../config/site';
+import { gate, social, waitlistPage } from '../config/site';
 import { Wordmark } from './Wordmark';
 import { Underline } from './Underline';
+import { WaitlistForm } from './WaitlistForm';
 import { DoodlePin } from './doodles';
 import { InstagramIcon, LinkedInIcon } from './icons';
 
 /**
  * The pre-launch teaser, shown *instead of* the site while the admin panel's
- * coming-soon gate is on. It names the brand and gives away nothing else.
+ * coming-soon gate is on. It names the brand, takes an email for the waitlist
+ * (the same ticket card as /waitlist's quick way), and gives away nothing else.
  * CSS-only motion (no GSAP/Lenis): this screen must boot instantly and stay
  * feather-light. Copy lives in `gate` in config/site.ts; the tab title swap
  * is owned by Root in main.tsx.
@@ -81,9 +83,39 @@ export function GateScreen() {
           {gate.note}
         </p>
 
+        {/* the one ask: the email ticket card, same as /waitlist (the form is styled for dark paper) */}
+        <div
+          id="waitlist"
+          className="relative mt-12 w-full max-w-[480px] rounded-[26px] border-[1.5px] border-ink bg-plum-950 px-6 pb-8 pt-9 text-left shadow-[5px_6px_0_rgb(var(--coral-500)/0.85)] motion-safe:animate-rise sm:px-8"
+          style={rise(0.6)}
+        >
+          {/* glow + grain clipped to the card, so the stamp above can hang over the edge */}
+          <div aria-hidden className="grain pointer-events-none absolute inset-0 overflow-hidden rounded-[24px]">
+            <div
+              className="absolute -top-[40%] left-1/2 h-[380px] w-[520px] -translate-x-1/2 opacity-50 blur-[100px]"
+              style={{ background: 'radial-gradient(closest-side, rgb(var(--coral-500) / 0.6), transparent 70%)' }}
+            />
+          </div>
+          <span
+            aria-hidden
+            className="absolute -top-3.5 left-7 -rotate-3 rounded-md border-[1.5px] border-ink bg-cream-25 px-2.5 py-0.5 font-hand text-[17px] leading-tight text-ink shadow-stamp-sm"
+          >
+            {waitlistPage.quick.stamp}
+          </span>
+          <div className="relative">
+            <h2 className="font-display text-[30px] font-semibold leading-[1.04] tracking-[-0.02em] text-cream-50">
+              {waitlistPage.quick.title}
+            </h2>
+            <p className="mt-3 text-[15.5px] leading-[1.6] text-plum-200">{waitlistPage.quick.body}</p>
+            <div className="-mt-4">
+              <WaitlistForm />
+            </div>
+          </div>
+        </div>
+
         <div
           className="mt-10 flex items-center gap-3 motion-safe:animate-rise"
-          style={rise(0.65)}
+          style={rise(0.75)}
         >
           <span className="font-hand text-[19px] text-ink-3">{gate.follow}</span>
           {social.map((s) => (
