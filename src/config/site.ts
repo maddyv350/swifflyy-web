@@ -69,26 +69,24 @@ export const gate = {
 
 /**
  * swifflyy.com/waitlist — the standalone page we share while the landing page
- * is gated. One way in: the full profile set-up at `full.href` (the app's
- * onboarding built for the browser, see swifflyy/tooling/build_web_join.sh;
- * it lives at public/join/).
- *
- * There used to be a second, email-only card here ("leave your address and
- * we'll write when we launch"). It was removed on 13 Sep 2026 because our SES
- * account is still in sandbox: it can only deliver to verified addresses, so
- * a stranger's email would be collected and then never written to. Better to
- * ask for nothing than to promise an email we cannot send. The signup
- * endpoint and the landing page's own form are untouched — restore the card
- * once production access is granted.
+ * is gated. Two ways in: the email signup above, or the full profile set-up
+ * at `full.href` (the app's onboarding built for the browser, see
+ * swifflyy/tooling/build_web_join.sh; it lives at public/join/).
  */
 export const waitlistPage = {
   chip: 'church street, bengaluru',
   eyebrow: 'dropping soon ✦',
   headline: ['Be there when Swifflyy', 'drops.'],
-  sub: 'We’re launching first on Church Street, Bengaluru. Set yourself up now and you’re in the room the moment it opens.',
+  sub: 'We’re launching first on Church Street, Bengaluru. Two ways to be in the room when it happens - pick whichever suits you.',
+  quick: {
+    stamp: 'your ticket in ✦',
+    kicker: '01 · the quick way',
+    title: 'Save my spot',
+    body: 'Leave your email and we’ll write the moment Swifflyy lands. Thirty seconds, no app needed.',
+  },
   full: {
     stamp: 'the head start ✦',
-    kicker: 'before launch day',
+    kicker: '02 · the whole thing, now',
     title: 'Set up my profile today',
     body: 'Do the full sign-up right here in your browser - and walk in on launch day with a finished profile while everyone else is still typing.',
     points: [

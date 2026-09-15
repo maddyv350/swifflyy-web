@@ -63,13 +63,10 @@ like the app rather than a generic template.
   [`src/waitlist.tsx`](src/waitlist.tsx) → [`WaitlistPage`](src/components/WaitlistPage.tsx))
   — the standalone link we share while the landing page is behind the
   coming-soon gate (it is deliberately NOT gated). "Swifflyy is dropping soon
-  to Church Street, Bengaluru" and one way in: **setting up the whole profile
-  now** at `/join/`. Copy lives in `waitlistPage` in `site.ts`.
-  An email-only "save my spot" card sat beside it until 13 Sep 2026; it was
-  removed because SES is still in sandbox and can only deliver to verified
-  addresses, so those signups would have been collected and never written to.
-  The signup endpoint and the landing page's own form are untouched — put the
-  card back once production access is granted.
+  to Church Street, Bengaluru" and two ways in: the email ticket (the same
+  `WaitlistForm`, now posting to the platform API — `waitlist.endpoint` in
+  `site.ts`, which also makes the landing page's form real) or **setting up the
+  whole profile now** at `/join/`. Copy lives in `waitlistPage` in `site.ts`.
 - **`/join/`** — the app's onboarding (phone → OTP → the full profile stepper →
   "dropping soon to Church Street") **built with Flutter for the browser** and
   committed under [`public/join/`](public/join/), which Vite copies verbatim
